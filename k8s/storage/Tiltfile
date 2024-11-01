@@ -1,0 +1,9 @@
+version_settings(constraint='>=0.31.2')
+
+k8s_yaml('storage.yml')
+
+k8s_resource(
+    new_name='storage', 
+    objects=['media:persistentvolumeclaim'], 
+    labels=['storage']
+)
