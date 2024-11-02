@@ -23,6 +23,7 @@ docker_build(
         sync(project_dir, '/app'),
         sync('../../repos/nerdd-module', '/deps/nerdd-module'),
         sync('../../repos/nerdd-link', '/deps/nerdd-link'),
+        run('touch /app/CHANGES')
     ]
 )
 
