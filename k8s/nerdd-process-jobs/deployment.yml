@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nerdd-process-jobs
+  labels:
+    app: nerdd-process-jobs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nerdd-process-jobs
+  template:
+    metadata:
+      labels:
+        app: nerdd-process-jobs
+    spec:
+      containers:
+        - name: nerdd-process-jobs
+          image: nerdd-process-jobs
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: media
