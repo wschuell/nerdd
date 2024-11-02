@@ -5,8 +5,8 @@ load('ext://git_resource', 'git_checkout')
 allow_k8s_contexts('default')
 
 # checkout source code
-project_name = 'cypstrate'
-repository_url = 'https://github.com/molinfo-vienna/cypstrate.git'
+project_name = 'nerdd-link'
+repository_url = 'https://github.com/molinfo-vienna/nerdd-link.git'
 project_dir = '../../repos/{}'.format(project_name)
 if not os.path.exists(project_dir):
     git_checkout(
@@ -16,23 +16,19 @@ if not os.path.exists(project_dir):
 
 # build the docker image
 docker_build(
-    project_name,
+    'nerdd-process-jobs',
     context='../../repos/',
     dockerfile="Dockerfile",
     live_update=[
         sync(project_dir, '/app'),
-        sync('../../repos/nerdd-module', '/deps/nerdd-module'),
-        sync('../../repos/nerdd-link', '/deps/nerdd-link'),
         run('touch /app/CHANGES')
     ]
 )
 
 k8s_yaml('deployment.yml')
-# k8s_yaml('scaler.yml')
 
 k8s_resource(
-    project_name,
-    # objects=['cypstrate-scaler'],
+    'nerdd-process-jobs',
     resource_deps=['kafka', 'keda-operator', 'storage'],
-    labels=["modules"],
+    labels=["communication"],
 )
