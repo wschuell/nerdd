@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nerdd-frontend
+  labels:
+    app: nerdd-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nerdd-frontend
+  template:
+    metadata:
+      labels:
+        app: nerdd-frontend
+    spec:
+      containers:
+        - name: nerdd-frontend
+          image: nerdd-frontend
+          ports:
+            - containerPort: 3000
