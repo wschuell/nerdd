@@ -1,6 +1,7 @@
 
 
 # update_settings(k8s_upsert_timeout_secs=60)
+update_settings(max_parallel_updates=2)
 
 modules = {
     # 'nerdd-module' : 'https://github.com/molinfo-vienna/nerdd-module.git',
