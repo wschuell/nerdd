@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+# create directory app as root user 
+# change ownership to user "node" (predifined in "node:alpine" image)
+RUN mkdir /app && chown -R node:node /app
+WORKDIR /app
+
+# do the rest as user "node"
+USER node
+
+# install dependencies (avoid )
+COPY --chown=node:node ./nerdd-frontend/package.json ./nerdd-frontend/package-lock.json* ./
+RUN npm ci && npm cache clean --force
+
+# copy source code
+COPY --chown=node:node ./nerdd-frontend/. .
+
+ENTRYPOINT npm start

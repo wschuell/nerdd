@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cyplebrity
+  labels:
+    app: cyplebrity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cyplebrity
+  template:
+    metadata:
+      labels:
+        app: cyplebrity
+    spec:
+      containers:
+        - name: cyplebrity
+          image: cyplebrity

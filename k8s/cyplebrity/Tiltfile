@@ -3,8 +3,8 @@ version_settings(constraint='>=0.31.2')
 load('ext://git_resource', 'git_checkout')
 
 # checkout source code
-project_name = 'cypstrate'
-repository_url = 'https://github.com/molinfo-vienna/cypstrate.git'
+project_name = 'cyplebrity'
+repository_url = 'https://github.com/molinfo-vienna/cyplebrity.git'
 project_dir = '../../repos/{}'.format(project_name)
 if not os.path.exists(project_dir):
     git_checkout(
@@ -30,7 +30,7 @@ k8s_yaml('scaler.yml')
 
 k8s_resource(
     project_name,
-    objects=['cypstrate-scaler'],
+    objects=['cyplebrity-scaler'],
     resource_deps=['kafka', 'keda-operator', 'storage'],
     labels=["modules"],
 )
