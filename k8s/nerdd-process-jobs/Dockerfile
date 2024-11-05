@@ -8,12 +8,11 @@ RUN apk update && apk add git entr
 ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
-COPY ./nerdd-link/environment.yml .
 
+COPY ./nerdd-link/environment.yml .
 RUN conda env create -f environment.yml
 
-COPY ./nerdd-link ./
-
+COPY ./nerdd-link .
 RUN --mount=type=cache,target=/root/.cache/pip \
     conda run -n nerdd_link pip install -e . 
 

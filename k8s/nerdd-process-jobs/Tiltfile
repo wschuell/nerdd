@@ -2,8 +2,6 @@ version_settings(constraint='>=0.31.2')
 
 load('ext://git_resource', 'git_checkout')
 
-allow_k8s_contexts('default')
-
 # checkout source code
 project_name = 'nerdd-link'
 repository_url = 'https://github.com/molinfo-vienna/nerdd-link.git'
