@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rethinkdb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rethinkdb
+  template:
+    metadata:
+      labels:
+        app: rethinkdb
+        tier: backend
+    spec:
+      containers:
+        - name: rethinkdb-container
+          image: rethinkdb:2.4.2
+          ports:
+            - containerPort: 8080   # administrative HTTP connections
+            - containerPort: 28015  # client driver connections
+            - containerPort: 29015  # intracluster connections
+          volumeMounts:
+            - mountPath: /data
+              name: volume
+      volumes:
+        - name: volume
+          emptyDir: {}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rethinkdb-service
+spec:
+  selector:
+    app: rethinkdb
+    tier: backend
+  ports:
+    - name: admin
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: intracluster
+      protocol: TCP
+      port: 29015
+      targetPort: 29015
+    - name: client
+      protocol: TCP
+      port: 28015
+      targetPort: 28015
+  type: ClusterIP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    name: rethinkdb-service-external
+  name: rethinkdb-service-external
+spec:
+  type: NodePort
+  selector:
+    app: rethinkdb
+    tier: backend
+  ports:
+    - name: admin-external
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: intracluster-external
+      protocol: TCP
+      port: 29015
+      targetPort: 29015
+    - name: client-external
+      protocol: TCP
+      port: 28015
+      targetPort: 28015
