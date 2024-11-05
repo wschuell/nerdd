@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: cyplebrity-scaler
+  labels:
+    deploymentName: cyplebrity-scaler
+spec:
+  scaleTargetRef:
+    name: cyplebrity
+  pollingInterval: 1
+  cooldownPeriod:  30
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  triggers:
+    - type: kafka
+      metadata:
+        topic: cypstrate-checkpoints
+        offsetResetPolicy: earliest
+        bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
+        consumerGroup: cyplebrity-model-consumer-group
+        lagThreshold: '5'
