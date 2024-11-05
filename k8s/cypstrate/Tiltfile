@@ -2,8 +2,6 @@ version_settings(constraint='>=0.31.2')
 
 load('ext://git_resource', 'git_checkout')
 
-allow_k8s_contexts('default')
-
 # checkout source code
 project_name = 'cypstrate'
 repository_url = 'https://github.com/molinfo-vienna/cypstrate.git'
@@ -28,11 +26,11 @@ docker_build(
 )
 
 k8s_yaml('deployment.yml')
-# k8s_yaml('scaler.yml')
+k8s_yaml('scaler.yml')
 
 k8s_resource(
     project_name,
-    # objects=['cypstrate-scaler'],
+    objects=['cypstrate-scaler'],
     resource_deps=['kafka', 'keda-operator', 'storage'],
     labels=["modules"],
 )

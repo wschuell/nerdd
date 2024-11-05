@@ -14,8 +14,8 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        topic: cypstrate-inputs
+        topic: cypstrate-checkpoints
         offsetResetPolicy: earliest
         bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
-        consumerGroup: cypstrate-consumer-group
+        consumerGroup: cypstrate-model-consumer-group
         lagThreshold: '5'
