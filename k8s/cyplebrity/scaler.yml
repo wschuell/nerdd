@@ -14,7 +14,7 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        topic: cypstrate-checkpoints
+        topic: cyplebrity-checkpoints
         offsetResetPolicy: earliest
         bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
         consumerGroup: cyplebrity-model-consumer-group
