@@ -1,0 +1,21 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: fame3-scaler
+  labels:
+    deploymentName: fame3-scaler
+spec:
+  scaleTargetRef:
+    name: fame3
+  pollingInterval: 1
+  cooldownPeriod:  30
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  triggers:
+    - type: kafka
+      metadata:
+        topic: fame3-inputs
+        offsetResetPolicy: earliest
+        bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
+        consumerGroup: fame3-consumer-group
+        lagThreshold: '5'
