@@ -1,6 +1,5 @@
 version_settings(constraint='>=0.22.2')
 
-allow_k8s_contexts('default')
 load('ext://git_resource', 'git_checkout')
 
 
@@ -16,17 +15,16 @@ if not os.path.exists(project_dir):
 
 docker_build(
     'nerdd-backend',
-    context='../../repos',
+    context='../../repos/nerdd-backend',
     dockerfile='./Dockerfile',
     live_update=[
-        sync('../../repos/nerdd-backend', '/app')
-    ],
-    # specify --reload to simplify live update
-    entrypoint='uvicorn nerdd_backend.main:app --reload'
+        sync(project_dir, '/app')
+    ]
 )
 
 k8s_yaml('backend.yml')
 k8s_yaml('rethinkdb.yml')
+k8s_yaml('service.yml')
 
 k8s_resource(
     workload='rethinkdb-deployment',

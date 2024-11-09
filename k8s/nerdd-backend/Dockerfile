@@ -14,7 +14,7 @@ WORKDIR /app
 #
 
 # 1. create the conda environment
-COPY ./nerdd-backend/environment.yml .
+COPY environment.yml .
 RUN conda env create -f environment.yml 
 
 # 2. get the name of the created conda environment
@@ -25,7 +25,7 @@ RUN echo "export CONDA_DEFAULT_ENV=$(head -1 environment.yml | cut -d' ' -f2)" >
 RUN echo "conda activate \$CONDA_DEFAULT_ENV" >> ~/.bashrc
 RUN echo "export PATH=/opt/conda/envs/\$CONDA_DEFAULT_ENV/bin:\$PATH" >> ~/.bashrc
 
-COPY ./nerdd-backend .
+COPY . .
 
 # --mount=type=cache,target=/root/.cache/pip: create a cache directory for pip, so that
 # it doesn't have to download the dependencies every time we build the image
@@ -35,4 +35,4 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # --no-capture-output: output of the application is not buffered and we can see it 
 # Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
 # standard output, not the output of the application.
-ENTRYPOINT uvicorn nerdd_backend.main:app
+ENTRYPOINT uvicorn nerdd_backend.main:app --host 0.0.0.0 --reload
