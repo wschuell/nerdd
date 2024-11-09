@@ -17,3 +17,10 @@ spec:
       containers:
         - name: cypstrate
           image: cypstrate
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: media
