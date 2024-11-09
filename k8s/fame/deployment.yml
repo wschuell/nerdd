@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cyplebrity
+  name: fame3
   labels:
-    app: cyplebrity
+    app: fame3
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cyplebrity
+      app: fame3
   template:
     metadata:
       labels:
-        app: cyplebrity
+        app: fame3
     spec:
       containers:
-        - name: cyplebrity
-          image: cyplebrity
+        - name: fame3
+          image: fame3
           volumeMounts:
             - name: data
               mountPath: "/data"

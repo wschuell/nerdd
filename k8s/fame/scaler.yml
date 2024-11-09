@@ -1,12 +1,12 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: cyplebrity-scaler
+  name: fame3-scaler
   labels:
-    deploymentName: cyplebrity-scaler
+    deploymentName: fame3-scaler
 spec:
   scaleTargetRef:
-    name: cyplebrity
+    name: fame3
   pollingInterval: 1
   cooldownPeriod:  30
   minReplicaCount: 0
@@ -14,8 +14,8 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        topic: cyplebrity-checkpoints
+        topic: fame3-inputs
         offsetResetPolicy: earliest
         bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
-        consumerGroup: cyplebrity-model-consumer-group
+        consumerGroup: fame3-consumer-group
         lagThreshold: '5'

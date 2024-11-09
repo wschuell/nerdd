@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cyplebrity
+  name: hitdexter3
   labels:
-    app: cyplebrity
+    app: hitdexter3
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cyplebrity
+      app: hitdexter3
   template:
     metadata:
       labels:
-        app: cyplebrity
+        app: hitdexter3
     spec:
       containers:
-        - name: cyplebrity
-          image: cyplebrity
+        - name: hitdexter3
+          image: hitdexter3
           volumeMounts:
             - name: data
               mountPath: "/data"

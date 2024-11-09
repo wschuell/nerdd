@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # Copy only the environment file first, so that we can cache the dependencies
-COPY ./cyplebrity/environment.yml .
+COPY environment.yml .
 RUN conda env create -f environment.yml
 
 RUN mkdir /deps
@@ -19,17 +19,17 @@ RUN mkdir /deps
 # Copy the nerdd-module source code directory and install it
 # --mount=type=cache,target=/root/.cache/pip: create a cache directory for pip, so that
 # it doesn't have to download the dependencies every time we build the image
-COPY ./nerdd-module /deps/nerdd-module
+COPY --from=nerdd-module . /deps/nerdd-module
 RUN --mount=type=cache,target=/root/.cache/pip \
     conda run -n cyplebrity pip install -e /deps/nerdd-module
 
 # Copy the nerdd-link source code directory and install it
-COPY ./nerdd-link /deps/nerdd-link
+COPY --from=nerdd-link . /deps/nerdd-link
 RUN --mount=type=cache,target=/root/.cache/pip \
     conda run -n cyplebrity pip install -e /deps/nerdd-link
 
 # Copy the rest of the source code directory and install the main package
-COPY ./cyplebrity ./
+COPY . .
 RUN --mount=type=cache,target=/root/.cache/pip \
     conda run -n cyplebrity pip install -e .
 
@@ -40,4 +40,5 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ENTRYPOINT echo . | entr -dnr \
     conda run --no-capture-output -n cyplebrity \
     nerdd_prediction_server cyplebrity.CyplebrityModel \
-    --broker-url my-cluster-kafka-bootstrap.kafka:9092 
+    --broker-url my-cluster-kafka-bootstrap.kafka:9092 \
+    --data-dir /data
