@@ -40,4 +40,5 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ENTRYPOINT echo . | entr -dnr \
     conda run --no-capture-output -n cyplebrity \
     nerdd_prediction_server cyplebrity.CyplebrityModel \
-    --broker-url my-cluster-kafka-bootstrap.kafka:9092 
+    --broker-url my-cluster-kafka-bootstrap.kafka:9092 \
+    --data-dir /data
