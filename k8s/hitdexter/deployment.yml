@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hitdexter3
+  labels:
+    app: hitdexter3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hitdexter3
+  template:
+    metadata:
+      labels:
+        app: hitdexter3
+    spec:
+      containers:
+        - name: hitdexter3
+          image: hitdexter3
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: media
