@@ -50,7 +50,12 @@ k8s_resource(
     labels=["kafka"]
 )
 
-all_objects = load_objects(['kafka.yml', 'topic_jobs.yml', 'topic_results.yml'], 'kafka')
+all_objects = load_objects([
+    'kafka.yml', 
+    'topic_jobs.yml', 
+    'topic_results.yml', 
+    'topic_system.yml'
+], 'kafka')
 
 k8s_resource(
     new_name='kafka',
