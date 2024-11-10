@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skin-doctor-cp
+  labels:
+    app: skin-doctor-cp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skin-doctor-cp
+  template:
+    metadata:
+      labels:
+        app: skin-doctor-cp
+    spec:
+      containers:
+        - name: skin-doctor-cp
+          image: skin-doctor-cp
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: media
