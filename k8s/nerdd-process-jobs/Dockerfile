@@ -9,12 +9,18 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-COPY ./nerdd-link/environment.yml .
+COPY environment.yml .
 RUN conda env create -f environment.yml
 
-COPY ./nerdd-link .
+# Copy the nerdd-link source code directory and install it
+COPY --from=nerdd-link . /deps/nerdd-link
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n nerdd_link pip install -e . 
+    conda run -n nerdd_link pip install -e /deps/nerdd-link
+
+# Copy the nerdd-module source code directory and install it
+COPY --from=nerdd-module . /deps/nerdd-module
+RUN --mount=type=cache,target=/root/.cache/pip \
+    conda run -n nerdd_link pip install -e /deps/nerdd-module
 
 # first line: watch the current directory and re-run the command if something changes
 # --no-capture-output: output of the application is not buffered and we can see it 

@@ -13,13 +13,16 @@ if not os.path.exists(project_dir):
     )
 
 # build the docker image
-docker_build(
+custom_build(
     'nerdd-process-jobs',
-    context='../../repos/',
-    dockerfile="Dockerfile",
+    command="docker buildx build -f ../../k8s/nerdd-process-jobs/Dockerfile -t $EXPECTED_REF --build-context nerdd-link=../nerdd-link --build-context nerdd-module=../nerdd-module .",
+    deps=[project_dir, '../../repos/nerdd-module', '../../repos/nerdd-link', '.'],
+    dir=project_dir,
     live_update=[
         sync(project_dir, '/app'),
-        run('touch /app/CHANGES')
+        sync('../../repos/nerdd-module', '/deps/nerdd-module'),
+        sync('../../repos/nerdd-link', '/deps/nerdd-link'),
+        run('touch /app/RESTART')
     ]
 )
 
