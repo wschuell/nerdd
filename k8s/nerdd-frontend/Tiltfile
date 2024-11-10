@@ -15,7 +15,7 @@ if not os.path.exists(project_dir):
 # build docker image
 docker_build(
     'nerdd-frontend',
-    context='../../repos',
+    context='../../repos/nerdd-frontend',
     dockerfile='Dockerfile.dev',
     live_update=[
         sync(project_dir, '/app')

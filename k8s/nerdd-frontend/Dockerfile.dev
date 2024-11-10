@@ -9,10 +9,10 @@ WORKDIR /app
 USER node
 
 # install dependencies (avoid )
-COPY --chown=node:node ./nerdd-frontend/package.json ./nerdd-frontend/package-lock.json* ./
+COPY --chown=node:node ./package.json ./package-lock.json* ./
 RUN npm ci && npm cache clean --force
 
 # copy source code
-COPY --chown=node:node ./nerdd-frontend/. .
+COPY --chown=node:node . .
 
 ENTRYPOINT npm start

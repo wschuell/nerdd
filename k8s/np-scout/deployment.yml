@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: np-scout
+  labels:
+    app: np-scout
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: np-scout
+  template:
+    metadata:
+      labels:
+        app: np-scout
+    spec:
+      containers:
+        - name: np-scout
+          image: np-scout
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: media
