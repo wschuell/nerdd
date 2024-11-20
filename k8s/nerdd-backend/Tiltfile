@@ -13,14 +13,20 @@ if not os.path.exists(project_dir):
         checkout_dir=project_dir
     )
 
-docker_build(
+# build the docker image
+custom_build(
     'nerdd-backend',
-    context='../../repos/nerdd-backend',
-    dockerfile='./Dockerfile',
+    command="docker buildx build -f ../../k8s/nerdd-backend/Dockerfile -t $EXPECTED_REF --build-context nerdd-link=../nerdd-link --build-context nerdd-module=../nerdd-module .",
+    deps=[project_dir, '../../repos/nerdd-module', '../../repos/nerdd-link', '.'],
+    dir=project_dir,
     live_update=[
-        sync(project_dir, '/app')
+        sync(project_dir, '/app'),
+        sync('../../repos/nerdd-module', '/deps/nerdd-module'),
+        sync('../../repos/nerdd-link', '/deps/nerdd-link'),
+        run('touch /app/RESTART')
     ]
 )
+
 
 k8s_yaml('backend.yml')
 k8s_yaml('rethinkdb.yml')
