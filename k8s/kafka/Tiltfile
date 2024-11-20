@@ -67,7 +67,7 @@ k8s_resource(
 #
 # KEDA
 #
-all_objects = load_objects('keda-2.10.1.yaml', 'keda')
+all_objects = load_objects('keda-2.16.0.yaml', 'keda')
 
 # remove the deployments and services from the list of objects, because tilt can only 
 # recognize it as a workload
