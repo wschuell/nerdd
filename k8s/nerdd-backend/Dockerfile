@@ -42,10 +42,10 @@ COPY . .
 # --mount=type=cache,target=/root/.cache/pip: create a cache directory for pip, so that
 # it doesn't have to download the dependencies every time we build the image
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n nerdd_backend pip install -e .
+    conda run -n nerdd_backend pip install -e .[test]
 
 # --no-capture-output: output of the application is not buffered and we can see it 
 # Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
 # standard output, not the output of the application.
 ENTRYPOINT conda run --no-capture-output -n nerdd_backend \
-    uvicorn nerdd_backend.main:app --host 0.0.0.0 --reload
+    python -m nerdd_backend.main
