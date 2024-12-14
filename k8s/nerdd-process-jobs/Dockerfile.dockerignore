@@ -2,7 +2,6 @@
 .gitignore
 
 .coverage
-.coverage*
 .pytest_cache
 .hypothesis
 .mypy_cache
@@ -10,6 +9,7 @@
 
 dist
 
+**/.git
 **/__pycache__
 *.pyc
 **/.pytest_cache
