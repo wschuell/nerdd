@@ -8,10 +8,10 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
-    repoURL: https://github.com/molinfo-vienna/nerdd.git
-    revision: HEAD
-    directories:
-    - path: apps/*/envs/metal
+      repoURL: https://github.com/molinfo-vienna/nerdd.git
+      revision: HEAD
+      directories:
+      - path: apps/*/envs/metal
   template:
     metadata:
       name: '{{index .path.segments 1}}'
