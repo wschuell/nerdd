@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-deployment
+  name: nginx-deployment
 spec:
   replicas: 3 # Number of pods to create
   selector:
     matchLabels:
-      app: hello-world
+      app: nginx
   template:
     metadata:
       labels:
-        app: hello-world
+        app: nginx
     spec:
       containers:
-      - name: hello-world
-        image: hello-world 
+      - name: nginx
+        image: nginx:latest 
