@@ -11,20 +11,20 @@ spec:
     repoURL: https://github.com/molinfo-vienna/nerdd.git
     revision: HEAD
     directories:
-    - path: apps/*/envs/metal   
-  template:    
-  metadata:
-    name: '{{index .path.segments 1}}'
-  spec:
-    # The project the application belongs to.
-    project: default
-    # Source of the application manifests
-    source:
-      repoURL: https://github.com/molinfo-vienna/nerdd.git
-      targetRevision: HEAD
-      path: '{{.path.path}}'
-    
-    # Destination cluster and namespace to deploy the application
-    destination:
-      server: https://kubernetes.default.svc
-      namespace: '{{index .path.segments 1}}'
+    - path: apps/*/envs/metal
+  template:
+    metadata:
+      name: '{{index .path.segments 1}}'
+    spec:
+      # The project the application belongs to.
+      project: default
+      # Source of the application manifests
+      source:
+        repoURL: https://github.com/molinfo-vienna/nerdd.git
+        targetRevision: HEAD
+        path: '{{.path.path}}'
+      
+      # Destination cluster and namespace to deploy the application
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{index .path.segments 1}}'
