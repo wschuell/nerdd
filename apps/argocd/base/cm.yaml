@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  # --enable-helm: enable kustomizing helm charts
+  # --load-restrictor LoadRestrictionsNone: enable kustomizing values.yaml parameter files
+  kustomize.buildOptions: "--enable-helm --load-restrictor LoadRestrictionsNone"
