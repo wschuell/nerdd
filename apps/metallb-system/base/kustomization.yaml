@@ -3,3 +3,5 @@ kind: Kustomization
 
 resources:
 - metallb-native.yaml
+- address-pool.yaml
+- advertisement.yaml
