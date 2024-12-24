@@ -27,7 +27,7 @@ spec:
       # Destination cluster and namespace to deploy the application
       destination:
         server: https://kubernetes.default.svc
-        # the namespace of metal apps don't need to indicate the environment
+        # the namespaces of metal apps don't need to indicate the environment
         namespace: '{{index .path.segments 1}}'
 
       # Sync policy
