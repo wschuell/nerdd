@@ -8,7 +8,7 @@ nameOverride: argocd
 fullnameOverride: ""
 # -- Override the namespace
 # @default -- `.Release.Namespace`
-namespaceOverride: ""
+namespaceOverride: "argocd"
 # -- Override the Kubernetes version, which is used to evaluate certain manifests
 kubeVersionOverride: ""
 # Override APIVersions
