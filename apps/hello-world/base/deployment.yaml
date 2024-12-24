@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
+  labels:
+    app: nginx
 spec:
   replicas: 3 # Number of pods to create
   selector:
@@ -15,3 +17,6 @@ spec:
       containers:
       - name: nginx
         image: nginx:latest 
+        ports:
+        - name: web
+          containerPort: 80
