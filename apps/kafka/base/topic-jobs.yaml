@@ -3,7 +3,7 @@ kind: KafkaTopic
 metadata:
   name: jobs
   labels:
-    strimzi.io/cluster: my-cluster
+    strimzi.io/cluster: kafka-cluster
 spec:
   partitions: 1
   replicas: 1
