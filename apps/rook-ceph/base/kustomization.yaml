@@ -6,6 +6,10 @@ resources:
 - common.yaml
 - operator.yaml
 - cluster.yaml
-- filesystem.yaml
-- storageclass.yaml
 - toolbox.yaml
+# cephfs storage
+- filesystem.yaml
+- storageclass-cephfs.yaml
+# block storage
+- blockpool.yaml
+- storageclass-block.yaml
