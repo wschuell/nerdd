@@ -14,7 +14,7 @@ spec:
       - path: apps/*/envs/prod
   template:
     metadata:
-      name: '{{index .path.segments 1}}'
+      name: '{{index .path.segments 3}}-{{index .path.segments 1}}'
     spec:
       # The project the application belongs to.
       project: default
@@ -28,7 +28,7 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         # the namespaces of infra apps don't need to indicate the environment
-        namespace: '{{index .path.segments 1}}'
+        namespace: '{{index .path.segments 3}}-{{index .path.segments 1}}'
 
       # Sync policy
       syncPolicy:
