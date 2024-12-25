@@ -7,4 +7,5 @@ resources:
 - topic-results.yaml
 - topic-system.yaml
 - rolebinding.yaml
+- rolebinding2.yaml
 - clusterrolebinding.yaml
