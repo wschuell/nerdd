@@ -16145,38 +16145,6 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: strimzi-cluster-operator
-  labels:
-    app: strimzi
-subjects:
-  - kind: ServiceAccount
-    name: strimzi-cluster-operator
-    namespace: myproject
-roleRef:
-  kind: ClusterRole
-  name: strimzi-cluster-operator-namespaced
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: strimzi-cluster-operator
-  labels:
-    app: strimzi
-subjects:
-  - kind: ServiceAccount
-    name: strimzi-cluster-operator
-    namespace: myproject
-roleRef:
-  kind: ClusterRole
-  name: strimzi-cluster-operator-global
-  apiGroup: rbac.authorization.k8s.io
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
   name: strimzi-cluster-operator-entity-operator-delegation
   labels:
     app: strimzi
