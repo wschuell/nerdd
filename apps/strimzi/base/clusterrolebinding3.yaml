@@ -10,5 +10,5 @@ subjects:
     namespace: strimzi
 roleRef:
   kind: ClusterRole
-  name: strimzi-cluster-operator-entity-operator-delegation
+  name: strimzi-entity-operator
   apiGroup: rbac.authorization.k8s.io
