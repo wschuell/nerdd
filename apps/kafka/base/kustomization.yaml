@@ -6,7 +6,3 @@ resources:
 - topic-jobs.yaml
 - topic-results.yaml
 - topic-system.yaml
-- rolebinding.yaml
-- rolebinding2.yaml
-- rolebinding3.yaml
-- clusterrolebinding.yaml
