@@ -29,3 +29,4 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: media
+            namespace: dev-storage

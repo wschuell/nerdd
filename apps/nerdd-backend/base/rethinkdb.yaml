@@ -25,7 +25,7 @@ spec:
               name: volume
       volumes:
         - name: volume
-          emptyDir: {}
+          claimName: rethinkdb-pvc
 ---
 kind: Service
 apiVersion: v1
@@ -74,3 +74,15 @@ spec:
       protocol: TCP
       port: 28015
       targetPort: 28015
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: rethinkdb-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: rook-cephfs
