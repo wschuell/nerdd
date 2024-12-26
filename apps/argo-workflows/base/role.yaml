@@ -10,5 +10,7 @@ rules:
   - workflows
   verbs:
   - create
+  - get
+  - watch
   - list
   - update
