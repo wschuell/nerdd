@@ -3,9 +3,9 @@ kind: Kustomization
 
 resources:
 - namespace-install.yaml
-# - role.yaml
-# - serviceaccount.yaml
-# - rolebinding.yaml
-# - secret.yaml
+- role-ui.yaml
+- serviceaccount-ui.yaml
+- rolebinding-ui.yaml
+- secret-ui.yaml
 
 namespace: argo-workflows
