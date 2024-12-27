@@ -10,4 +10,4 @@ spec:
       storage: 300Gi
   storageClassName: rook-cephfs
   volumeMode: Filesystem
-  volumeName: pv-media
+  volumeName: pv-media-dev-nerdd-backend

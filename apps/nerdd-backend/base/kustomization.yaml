@@ -5,3 +5,5 @@ resources:
 - backend.yaml
 - rethinkdb.yaml
 - service.yaml
+- pv.yaml
+- pvc.yaml
