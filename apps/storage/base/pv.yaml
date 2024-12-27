@@ -1,0 +1,38 @@
+# To create this file we followed the guide in 
+# https://www.rook.io/docs/rook/latest/Storage-Configuration/Shared-Filesystem-CephFS/filesystem-storage/
+# (starting from "Shared volume creation")
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  finalizers:
+  - external-provisioner.volume.kubernetes.io/finalizer
+  - kubernetes.io/pv-protection
+  name: pvc-3e210245-ed3e-42de-96d4-55ffa29cb4fc
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 300Gi
+  csi:
+    controllerExpandSecretRef:
+      name: rook-csi-cephfs-provisioner
+      namespace: rook-ceph
+    driver: rook-ceph.cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      name: rook-csi-cephfs-node
+      namespace: rook-ceph
+    volumeAttributes:
+      clusterID: rook-ceph
+      fsName: myfs
+      pool: myfs-replicated
+      storage.kubernetes.io/csiProvisionerIdentity: 1735281406897-5709-rook-ceph.cephfs.csi.ceph.com
+      subvolumeName: csi-vol-00ebc865-e344-4f2a-b8ba-b7abfbf65a13
+      subvolumePath: /volumes/csi/csi-vol-00ebc865-e344-4f2a-b8ba-b7abfbf65a13/9d2e926d-b68c-46f4-885c-a801605f47ec
+      rootPath: /volumes/csi/csi-vol-00ebc865-e344-4f2a-b8ba-b7abfbf65a13/9d2e926d-b68c-46f4-885c-a801605f47ec
+      staticVolume: "true"
+    volumeHandle: 0001-0009-rook-ceph-0000000000000001-00ebc865-e344-4f2a-b8ba-b7abfbf65a13
+  # We switched policy "Delete" to "Retain" to make sure that deleting this PV doesn't delete the 
+  # data.
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: rook-cephfs
+  volumeMode: Filesystem
