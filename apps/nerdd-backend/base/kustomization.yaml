@@ -7,3 +7,5 @@ resources:
 - service.yaml
 - pv.yaml
 - pvc.yaml
+# workflow to keep image up to date
+- deploy_image.yaml
