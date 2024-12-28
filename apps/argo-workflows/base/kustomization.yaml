@@ -3,6 +3,8 @@ kind: Kustomization
 
 resources:
 - namespace-install.yaml
+- role-default.yaml
+- rolebinding-default.yaml
 # ui user
 - role-ui.yaml
 - serviceaccount-ui.yaml
