@@ -5,12 +5,30 @@ metadata:
   namespace: argo-workflows
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - events
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
   - argoproj.io
   resources:
+  - eventsources
+  - sensors
   - workflows
+  - workfloweventbindings
+  - workflowtemplates
+  - clusterworkflowtemplates
+  - cronworkflows
+  - workflowtaskresults
   verbs:
   - create
   - get
+  - delete
   - watch
   - list
   - update
