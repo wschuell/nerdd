@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nerdd-backend
-          image: nerdd-backend
+          image: registry-service.registry.svc.cluster.local/nerdd-backend:latest
           ports:
             - containerPort: 8000
           env:
@@ -28,4 +28,4 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: media
+            claimName: pvc-media
