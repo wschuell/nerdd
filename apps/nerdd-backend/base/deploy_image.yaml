@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Workflow
+kind: WorkflowTemplate
 metadata:
-  name: deploy-backend-image-workflow
+  name: deploy-backend-image
   # The dash at the end is intentional:
   generateName: deploy-backend-image-
 spec:
