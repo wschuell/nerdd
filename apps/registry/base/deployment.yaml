@@ -28,10 +28,10 @@ spec:
         env:
         - name: REGISTRY_HTTP_ADDR
           value: :5000
-        - name: REGISTRY_HTTP_TLS_CERTIFICATE
-          value: /certs/tls.crt
-        - name: REGISTRY_HTTP_TLS_KEY
-          value: /certs/tls.key
+        # - name: REGISTRY_HTTP_TLS_CERTIFICATE
+        #   value: /certs/tls.crt
+        # - name: REGISTRY_HTTP_TLS_KEY
+        #   value: /certs/tls.key
       volumes:
         - name: volume
           persistentVolumeClaim:
