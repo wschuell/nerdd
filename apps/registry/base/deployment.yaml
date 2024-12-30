@@ -23,7 +23,19 @@ spec:
         - name: volume
           mountPath: /var/lib/registry
           subPath: registry
+        - name: registry-certs
+          mountPath: /certs
+        env:
+        - name: REGISTRY_HTTP_ADDR
+          value: :5000
+        - name: REGISTRY_HTTP_TLS_CERTIFICATE
+          value: /certs/tls.crt
+        - name: REGISTRY_HTTP_TLS_KEY
+          value: /certs/tls.key
       volumes:
         - name: volume
           persistentVolumeClaim:
             claimName: registry-data-pvc
+        - name: registry-certs
+          secret:
+            secretName: registry-tls
