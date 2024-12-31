@@ -1,5 +1,5 @@
 apiVersion: argoproj.io/v1alpha1
-kind: WorkflowTemplate
+kind: ClusterWorkflowTemplate
 metadata:
   name: deploy-backend-image
   # The dash at the end is intentional:
