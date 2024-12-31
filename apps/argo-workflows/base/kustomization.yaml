@@ -5,6 +5,8 @@ resources:
 - namespace-install.yaml
 - role-default.yaml
 - rolebinding-default.yaml
+- clusterrole-default.yaml
+- clusterrolebinding-default.yaml
 # ui user
 - role-ui.yaml
 - serviceaccount-ui.yaml
