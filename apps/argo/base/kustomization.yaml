@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
 - install-3.6.2.yaml
+- serviceaccount.yaml
 - secret.yaml
 - role.yaml
 - rolebinding.yaml
