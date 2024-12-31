@@ -16,7 +16,7 @@ spec:
       - name: nerdd-repo
         value: https://github.com/molinfo-vienna/nerdd.git
       - name: image-registry
-        value: registry-service.registry.svc.cluster.local:5000
+        value: ghcr.io/molinfo-vienna/nerdd/
 
   templates:
     - name: push-image
@@ -136,6 +136,17 @@ spec:
             value: ""
       script:
         image: gcr.io/go-containerregistry/crane:debug
+        env:
+          - name: OCI_REGISTRY_USER
+            valueFrom:
+              secretKeyRef:
+                name: registry-credentials
+                key: username
+          - name: OCI_REGISTRY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: registry-credentials
+                key: password
         command:
           - sh
         source: |
