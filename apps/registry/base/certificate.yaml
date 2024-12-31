@@ -8,4 +8,5 @@ spec:
     name: selfsigned-cluster-issuer
     kind: ClusterIssuer
     group: cert-manager.io
-  commonName: registry-service.registry.svc.cluster.local
+  dnsNames: 
+  - registry-service.registry.svc.cluster.local
