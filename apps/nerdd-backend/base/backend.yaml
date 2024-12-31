@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: nerdd-backend
-          image: registry-service.registry.svc.cluster.local:5000/nerdd-backend:latest
+          image: ghcr.io/molinfo-vienna/nerdd/nerdd-backend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000
           env:
