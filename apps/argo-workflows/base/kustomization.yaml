@@ -10,5 +10,7 @@ resources:
 - serviceaccount-ui.yaml
 - rolebinding-ui.yaml
 - secret-ui.yaml
+- clusterrole-ui.yaml
+- clusterrolebinding-ui.yaml
 
 namespace: argo-workflows
