@@ -51,6 +51,8 @@ spec:
           - name: deploy-image
             arguments:
               parameters:
+                - name: image-registry
+                  value: "{{workflow.parameters.image-registry}}"
                 - name: image-path
                   value: "{{workflow.parameters.image-registry}}/{{workflow.parameters.module-name}}:{{tasks.clone-nerdd.outputs.parameters.version}}-{{tasks.clone-module.outputs.parameters.version}}"
             template: deploy-image
@@ -132,6 +134,8 @@ spec:
     - name: deploy-image
       inputs:
         parameters:
+          - name: image-registry
+            value: ""
           - name: image-path
             value: ""
       script:
@@ -150,6 +154,7 @@ spec:
         command:
           - sh
         source: |
+          crane auth login -u $OCI_REGISTRY_USER -p $OCI_REGISTRY_PASSWORD {{inputs.parameters.image-registry}}
           crane push /workdir/image.tar {{inputs.parameters.image-path}}
         volumeMounts:
           - name: workdir
