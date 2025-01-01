@@ -118,6 +118,10 @@ spec:
         parameters:
           - name: image-path
             value: ""
+      outputs:
+        artifacts:
+          - name: image
+            path: /workdir/image.tar
       container:
         image: gcr.io/kaniko-project/executor:latest
         args:
