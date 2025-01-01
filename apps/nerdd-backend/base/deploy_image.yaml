@@ -154,7 +154,7 @@ spec:
         command:
           - sh
         source: |
-          crane auth login -u $OCI_REGISTRY_USER -p $OCI_REGISTRY_PASSWORD
+          crane auth login -u $OCI_REGISTRY_USER -p $OCI_REGISTRY_PASSWORD ghcr.io
           crane push /workdir/image.tar {{inputs.parameters.image-path}}
         volumeMounts:
           - name: workdir
