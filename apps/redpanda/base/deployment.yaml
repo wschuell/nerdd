@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redpanda-console
+  labels:
+    app: redpanda-console
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redpanda-console
+  template:
+    metadata:
+      labels:
+        app: redpanda-console
+    spec:
+      containers:
+        - name: redpanda-console
+          image: docker.redpanda.com/vectorized/console
+          env:
+          - name: KAFKA_BROKERS
+            value: <to-patch>
+          ports:
+            - containerPort: 8080
