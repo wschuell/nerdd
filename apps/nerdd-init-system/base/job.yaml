@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nerdd-init-system
+  labels:
+    app: nerdd-init-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: nerdd-init-system
+    spec:
+      containers:
+        - name: nerdd-init-system
+          image: confluentinc/cp-kafka:7.7.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: KAFKA_BROKERS
+              value: <to_patch>
+          command:
+            - /bin/bash
+            - -c
+            - |
+              kafka-console-producer \
+                --broker-list $KAFKA_BOOTSTRAP_SERVERS \
+                --topic system \
+                --property "parse.key=true" \
+                --property "key.separator=:"
+
+      restartPolicy: Never
+  backoffLimit: 4
