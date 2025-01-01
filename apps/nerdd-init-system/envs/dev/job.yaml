@@ -8,5 +8,5 @@ spec:
       containers:
         - name: nerdd-init-system
           env:
-            - name: KAFKA_BROKERS
+            - name: KAFKA_BROKER_URL
               value: kafka-cluster-kafka-bootstrap.dev:9092

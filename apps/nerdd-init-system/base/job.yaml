@@ -15,14 +15,14 @@ spec:
           image: confluentinc/cp-kafka:7.7.1
           imagePullPolicy: IfNotPresent
           env:
-            - name: KAFKA_BROKERS
+            - name: KAFKA_BROKER_URL
               value: <to_patch>
           command:
             - /bin/bash
             - -c
             - |
-              kafka-console-producer \
-                --broker-list $KAFKA_BOOTSTRAP_SERVERS \
+              echo -n "init:{}" | kafka-console-producer \
+                --broker-list $KAFKA_BROKER_URL \
                 --topic system \
                 --property "parse.key=true" \
                 --property "key.separator=:"
