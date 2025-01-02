@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cypstrate
-          image: cypstrate:latest
+          image: ghcr.io/shirte/nerdd/cypstrate:latest
           env:
             - name: KAFKA_BROKER_URL
               value: <to-patch>
