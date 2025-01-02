@@ -139,7 +139,7 @@ spec:
           - name: image-path
             value: ""
       script:
-        image: gcr.io/go-containerregistry/crane:0.20.2
+        image: alpine/crane:0.20.2
         env:
           - name: OCI_REGISTRY_USER
             valueFrom:
