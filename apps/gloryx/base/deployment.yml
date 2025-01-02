@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gloryx
+  labels:
+    app: gloryx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gloryx
+  template:
+    metadata:
+      labels:
+        app: gloryx
+    spec:
+      containers:
+        - name: gloryx
+          image: ghcr.io/shirte/gloryx:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-media
