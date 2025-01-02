@@ -1,5 +1,8 @@
 FROM continuumio/miniconda3:4.10.3p0-alpine
 
+# necessary to display the image on Github
+LABEL org.opencontainers.image.source="https://github.com/shirte/nerdd"
+
 # rdkit requires libxrender, libxext-dev and libxau
 # entr is used for live reloading the application
 RUN apk update && apk add git libxrender libxext-dev libxau entr
@@ -14,19 +17,19 @@ WORKDIR /app
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
-RUN mkdir /deps
+# RUN mkdir /deps
 
 # Copy the nerdd-module source code directory and install it
 # --mount=type=cache,target=/root/.cache/pip: create a cache directory for pip, so that
 # it doesn't have to download the dependencies every time we build the image
-COPY --from=nerdd-module . /deps/nerdd-module
-RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n cypstrate pip install -e /deps/nerdd-module
+# COPY --from=nerdd-module . /deps/nerdd-module
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#     conda run -n cypstrate pip install -e /deps/nerdd-module
 
 # Copy the nerdd-link source code directory and install it
-COPY --from=nerdd-link . /deps/nerdd-link
-RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n cypstrate pip install -e /deps/nerdd-link
+# COPY --from=nerdd-link . /deps/nerdd-link
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#     conda run -n cypstrate pip install -e /deps/nerdd-link
 
 # Copy the rest of the source code directory and install the main package
 COPY . .
@@ -40,5 +43,5 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ENTRYPOINT echo . | entr -dnr \
     conda run --no-capture-output -n cypstrate \
     nerdd_prediction_server cypstrate.CypstrateModel \
-    --broker-url my-cluster-kafka-bootstrap.kafka:9092 \
+    --broker-url $KAFKA_BROKER_URL \
     --data-dir /data
