@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nerdd-backend
+spec:
+  template:
+    spec:
+      containers:
+        - name: nerdd-backend
+          env:
+            - name: KAFKA_BROKER_URL
+              value: kafka-cluster-kafka-bootstrap.dev:9092
+            - name: RETHINK_DB_HOST
+              value: rethinkdb-service.dev
+            - name: RETHINK_DB_PORT
+              value: 28015

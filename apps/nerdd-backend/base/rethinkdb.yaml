@@ -25,7 +25,8 @@ spec:
               name: volume
       volumes:
         - name: volume
-          claimName: rethinkdb-pvc
+          persistentVolumeClaim:
+            claimName: rethinkdb-pvc
 ---
 kind: Service
 apiVersion: v1
@@ -49,31 +50,6 @@ spec:
       port: 28015
       targetPort: 28015
   type: ClusterIP
----
-kind: Service
-apiVersion: v1
-metadata:
-  labels:
-    name: rethinkdb-service-external
-  name: rethinkdb-service-external
-spec:
-  type: NodePort
-  selector:
-    app: rethinkdb
-    tier: backend
-  ports:
-    - name: admin-external
-      protocol: TCP
-      port: 8080
-      targetPort: 8080
-    - name: intracluster-external
-      protocol: TCP
-      port: 29015
-      targetPort: 29015
-    - name: client-external
-      protocol: TCP
-      port: 28015
-      targetPort: 28015
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
