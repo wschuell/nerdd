@@ -21,7 +21,7 @@ spec:
       - name: nerdd-repo
         value: https://github.com/molinfo-vienna/nerdd.git
       - name: image-registry
-        value: ghcr.io/molinfo-vienna/nerdd/
+        value: ghcr.io/shirte/nerdd/
 
   templates:
     - name: push-image
@@ -159,9 +159,6 @@ spec:
         command:
           - sh
         source: |
-          echo "HELLO"
-          echo $OCI_REGISTRY_USER
-          echo $OCI_REGISTRY_PASSWORD
           crane auth login -u $OCI_REGISTRY_USER -p $OCI_REGISTRY_PASSWORD ghcr.io
           crane push /workdir/image.tar {{inputs.parameters.image-path}}
         volumeMounts:
