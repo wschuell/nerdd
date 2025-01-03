@@ -17,31 +17,17 @@ WORKDIR /app
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
-# RUN mkdir /deps
-
-# Copy the nerdd-module source code directory and install it
-# --mount=type=cache,target=/root/.cache/pip: create a cache directory for pip, so that
-# it doesn't have to download the dependencies every time we build the image
-# COPY --from=nerdd-module . /deps/nerdd-module
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#     conda run -n cypstrate pip install -e /deps/nerdd-module
-
-# Copy the nerdd-link source code directory and install it
-# COPY --from=nerdd-link . /deps/nerdd-link
-# RUN --mount=type=cache,target=/root/.cache/pip \
-#     conda run -n cypstrate pip install -e /deps/nerdd-link
-
 # Copy the rest of the source code directory and install the main package
 COPY . .
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n cypstrate pip install -e .
+    conda run -n cypstrate pip install .
 
-# first line: watch the current directory and re-run the command if something changes
-# --no-capture-output: output of the application is not buffered and we can see it 
+RUN --mount=type=cache,target=/root/.cache/pip \
+    conda run -n cypstrate pip install nerdd-link==0.2.3
+
 # Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
 # standard output, not the output of the application.
-ENTRYPOINT echo . | entr -dnr \
-    conda run --no-capture-output -n cypstrate \
+ENTRYPOINT conda run --no-capture-output -n cypstrate \
     nerdd_prediction_server cypstrate.CypstrateModel \
     --broker-url $KAFKA_BROKER_URL \
     --data-dir /data
