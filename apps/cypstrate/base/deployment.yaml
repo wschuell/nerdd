@@ -23,6 +23,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: "/data"
+          resources:
+            requests:
+              cpu: 4
+              memory: 3G
+            limits:
+              cpu: 4
+              memory: 6G
       volumes:
         - name: data
           persistentVolumeClaim:
