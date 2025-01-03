@@ -16,11 +16,21 @@ spec:
     spec:
       containers:
         - name: cyplebrity
-          image: cyplebrity
+          image: ghcr.io/shirte/cyplebrity:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
           volumeMounts:
             - name: data
               mountPath: "/data"
+          resources:
+            requests:
+              cpu: 1
+              memory: 4G
+            limits:
+              cpu: 1
+              memory: 8G
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: media
+            claimName: pvc-media
