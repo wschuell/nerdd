@@ -1,5 +1,8 @@
 FROM continuumio/miniconda3:4.10.3p0-alpine
 
+# necessary to display the image on Github
+LABEL org.opencontainers.image.source="https://github.com/shirte/nerdd"
+
 # entr is used for live reloading the application
 RUN apk update && apk add git entr
 
@@ -12,22 +15,13 @@ WORKDIR /app
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
-# Copy the nerdd-link source code directory and install it
-COPY --from=nerdd-link . /deps/nerdd-link
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n nerdd_link pip install -e /deps/nerdd-link
+    conda run -n nerdd_link pip install nerdd-link==0.2.4
 
-# Copy the nerdd-module source code directory and install it
-COPY --from=nerdd-module . /deps/nerdd-module
-RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n nerdd_link pip install -e /deps/nerdd-module
-
-# first line: watch the current directory and re-run the command if something changes
 # --no-capture-output: output of the application is not buffered and we can see it 
 # Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
 # standard output, not the output of the application.
-ENTRYPOINT echo . | entr -dnr \
-    conda run --no-capture-output -n nerdd_link \
+ENTRYPOINT conda run --no-capture-output -n nerdd_link \
     nerdd_job_server \
-    --broker-url my-cluster-kafka-bootstrap.kafka:9092 \
+    --broker-url $KAFKA_BROKER_URL \
     --data-dir /data

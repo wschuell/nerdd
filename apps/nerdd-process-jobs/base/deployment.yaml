@@ -16,11 +16,21 @@ spec:
     spec:
       containers:
         - name: nerdd-process-jobs
-          image: nerdd-process-jobs
+          image: ghcr.io/shirte/nerdd-process-jobs:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
           volumeMounts:
             - name: data
               mountPath: "/data"
+          resources:
+            requests:
+              cpu: 1
+              memory: 3G
+            limits:
+              cpu: 1
+              memory: 6G
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: media
+            claimName: pvc-media
