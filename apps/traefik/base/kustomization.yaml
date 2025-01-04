@@ -3,3 +3,5 @@ kind: Kustomization
 
 resources:
 - traefik-3.2.2.yaml
+# dashboard service is not accessible by default
+- dashboard-service.yaml
