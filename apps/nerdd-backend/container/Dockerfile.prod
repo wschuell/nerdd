@@ -6,14 +6,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-#
-# Setup the conda environment
-# 1. create the conda environment
-# 2. get the name of the conda environment and write to bashrc
-# 3. configure auto-activation of the conda environment (on each RUN command)
-#
-
-# 1. create the conda environment
+# create the conda environment
 COPY environment.yml .
 RUN conda env create -f environment.yml 
 
