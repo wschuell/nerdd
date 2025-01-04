@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: nerdd-frontend
-          image: nerdd-frontend
+          image: ghcr.io/shirte/nerdd-frontend:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 80
