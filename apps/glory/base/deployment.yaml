@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glory
+  labels:
+    app: glory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glory
+  template:
+    metadata:
+      labels:
+        app: glory
+    spec:
+      containers:
+        - name: glory
+          image: ghcr.io/shirte/glory:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-media

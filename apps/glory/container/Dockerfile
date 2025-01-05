@@ -20,14 +20,14 @@ RUN conda env create -f environment.yml
 # Copy the rest of the source code directory and install the main package
 COPY . .
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n gloryx pip install .
+    conda run -n glory pip install .
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n gloryx pip install nerdd-link==0.2.5
+    conda run -n glory pip install nerdd-link==0.2.6
 
 # Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
 # standard output, not the output of the application.
-ENTRYPOINT conda run --no-capture-output -n gloryx \
-    nerdd_prediction_server gloryx.GloryXModel \
+ENTRYPOINT conda run --no-capture-output -n glory \
+    nerdd_prediction_server glory.GloryModel \
     --broker-url $KAFKA_BROKER_URL \
     --data-dir /data
