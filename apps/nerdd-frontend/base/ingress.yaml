@@ -24,6 +24,9 @@ spec:
   routes:
     - match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/`)
       kind: Rule
+      services:
+        - name: nerdd-frontend
+          port: 80
       middlewares:
         - name: website-http-to-https
 ---
