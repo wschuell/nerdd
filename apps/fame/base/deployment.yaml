@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fame
+  labels:
+    app: fame
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fame
+  template:
+    metadata:
+      labels:
+        app: fame
+    spec:
+      containers:
+        - name: fame
+          image: ghcr.io/shirte/fame:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-media
