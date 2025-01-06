@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nerdd-frontend-certificate
+spec:
+  secretName: domain-tls-staging
+  dnsNames:
+    - "dev-nerdd.univie.ac.at"
+  issuerRef:
+    name: acme-issuer-staging
+    kind: Issuer

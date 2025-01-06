@@ -11,3 +11,5 @@ spec:
       services:
         - name: nerdd-frontend
           port: 80
+  tls:
+    secretName: domain-tls-staging
