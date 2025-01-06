@@ -3,7 +3,6 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: nerdd-backend-stripprefix
-  namespace: dev
 spec:
   stripPrefix:
     prefixes:
@@ -13,7 +12,6 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: nerdd-backend-ingressroute
-  namespace: dev
 spec:
   entryPoints:
     - web
