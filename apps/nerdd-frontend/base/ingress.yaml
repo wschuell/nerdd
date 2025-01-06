@@ -12,7 +12,7 @@ spec:
         - name: nerdd-frontend
           port: 80
   tls:
-    secretName: domain-tls-staging
+    secretName: domain-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute

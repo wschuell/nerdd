@@ -5,5 +5,8 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
-- clusterissuer-staging.yaml
+- clusterissuer.yaml
 - certificate.yaml
+# staging certificate for testing:
+# - clusterissuer-staging.yaml
+# - certificate-staging.yaml
