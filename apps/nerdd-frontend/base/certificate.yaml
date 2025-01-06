@@ -8,4 +8,5 @@ spec:
     - "dev-nerdd.univie.ac.at"
   issuerRef:
     name: acme-issuer-staging
+    namespace: cert-manager
     kind: Issuer
