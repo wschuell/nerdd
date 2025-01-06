@@ -11,5 +11,17 @@ spec:
       services:
         - name: nerdd-frontend
           port: 80
+      middlewares:
+        - name: website-http-to-https
   tls:
     secretName: domain-tls-staging
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: website-http-to-https
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
