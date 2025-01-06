@@ -3,4 +3,6 @@ kind: Kustomization
 
 resources:
 - cert-manager-1.16.2.yaml
+- clusterissuer-staging.yaml
+# TODO: it this needed somewhere?
 - clusterissuer.yaml
