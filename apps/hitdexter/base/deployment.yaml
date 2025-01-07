@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hitdexter
+  labels:
+    app: hitdexter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hitdexter
+  template:
+    metadata:
+      labels:
+        app: hitdexter
+    spec:
+      containers:
+        - name: hitdexter
+          image: ghcr.io/shirte/hitdexter:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+          resources:
+            requests:
+              cpu: 2
+              memory: 20G
+            limits:
+              cpu: 2
+              memory: 30G
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-media

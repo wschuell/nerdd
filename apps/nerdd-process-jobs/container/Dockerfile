@@ -16,7 +16,7 @@ COPY environment.yml .
 RUN conda env create -f environment.yml
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-    conda run -n nerdd_link pip install nerdd-link==0.2.4
+    conda run -n nerdd_link pip install nerdd-link==0.2.5
 
 # --no-capture-output: output of the application is not buffered and we can see it 
 # Note: PYTHONUNBUFFERED is not enough, because it only affects the Python
