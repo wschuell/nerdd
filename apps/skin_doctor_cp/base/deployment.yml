@@ -16,11 +16,20 @@ spec:
     spec:
       containers:
         - name: skin-doctor-cp
-          image: skin-doctor-cp
+          image: ghcr.io/shirte/skin-doctor-cp:latest
+          env:
+            - name: KAFKA_BROKER_URL
           volumeMounts:
             - name: data
               mountPath: "/data"
+          resources:
+            requests:
+              cpu: 1
+              memory: 8G
+            limits:
+              cpu: 1
+              memory: 10G
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: media
+            claimName: pvc-media
