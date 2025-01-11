@@ -1,12 +1,12 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: fame3-scaler
+  name: skindoctor-cp-scaler
   labels:
-    deploymentName: fame3-scaler
+    deploymentName: skindoctor-cp-scaler
 spec:
   scaleTargetRef:
-    name: fame3
+    name: skindoctor-cp
   pollingInterval: 1
   cooldownPeriod:  30
   minReplicaCount: 0
@@ -14,8 +14,8 @@ spec:
   triggers:
     - type: kafka
       metadata:
-        topic: fame3-inputs
+        topic: skin-doctor-cp-checkpoints
         offsetResetPolicy: earliest
         bootstrapServers: my-cluster-kafka-bootstrap.kafka:9092
-        consumerGroup: fame3-consumer-group
+        consumerGroup: skindoctorcp-consumer-group
         lagThreshold: '5'
