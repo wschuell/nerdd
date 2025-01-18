@@ -6,10 +6,17 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/argocd`)
-      kind: Rule
+    - kind: Rule
+      match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/argocd`)
       services:
         - name: argocd-server
-          port: 443
+          port: 80
+    - kind: Rule
+      match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/argocd`) && Header(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argocd-server
+          port: 80
+          scheme: h2c
   tls:
     certResolver: default
