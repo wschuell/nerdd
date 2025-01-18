@@ -9,8 +9,6 @@ spec:
     services:
     - name: api@internal
       kind: TraefikService
-    middlewares:
-      - name: strip-traefik-prefix
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -19,13 +17,3 @@ metadata:
 spec:
   basicAuth:
     secret: secretName # Kubernetes secret named "secretName"
----
-# Middleware to strip /argocd prefix
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-traefik-prefix
-spec:
-  stripPrefix:
-    prefixes:
-      - "/traefik"

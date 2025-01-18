@@ -34,6 +34,7 @@ data:
           publishedService: traefik/traefik
     api:
       dashboard: true
+      basePath: /traefik
     ping:
       entryPoint: traefik
     metrics:
