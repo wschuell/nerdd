@@ -1,12 +1,13 @@
+# Source: traefik/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: traefik
+  name: kong-traefik
   namespace: traefik
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: traefik-traefik
-    helm.sh/chart: traefik-33.2.1
+    app.kubernetes.io/instance: kong-traefik
+    helm.sh/chart: traefik-34.1.0
     app.kubernetes.io/managed-by: Helm
   annotations:
 spec:
@@ -14,7 +15,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
-      app.kubernetes.io/instance: traefik-traefik
+      app.kubernetes.io/instance: kong-traefik
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -29,18 +30,18 @@ spec:
         prometheus.io/port: "9100"
       labels:
         app.kubernetes.io/name: traefik
-        app.kubernetes.io/instance: traefik-traefik
-        helm.sh/chart: traefik-33.2.1
+        app.kubernetes.io/instance: kong-traefik
+        helm.sh/chart: traefik-34.1.0
         app.kubernetes.io/managed-by: Helm
     spec:
-      serviceAccountName: traefik
+      serviceAccountName: kong-traefik
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       hostNetwork: false
       containers:
-      - image: docker.io/traefik:v3.2.2
+      - image: docker.io/traefik:v3.3.2
         imagePullPolicy: IfNotPresent
-        name: traefik
+        name: kong-traefik
         resources:
         readinessProbe:
           httpGet:
@@ -103,8 +104,6 @@ spec:
         - name: data
           emptyDir: {}
         - name: tmp
-          emptyDir: {}
-        - name: acme
           emptyDir: {}
         - name: config-static
           configMap:
