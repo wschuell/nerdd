@@ -41,10 +41,5 @@ data:
         entryPoint: metrics
     log:
       level: INFO
-    certificatesResolvers:
-      default:
-        acme:
-          storage: /data/acme.json
-          tlsChallenge: {}
           
           
