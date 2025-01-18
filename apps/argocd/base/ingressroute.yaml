@@ -8,13 +8,13 @@ spec:
   routes:
     - kind: Rule
       match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/argocd`)
-      priority: 10
+      priority: 100
       services:
         - name: argocd-server
           port: 80
     - kind: Rule
       match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/argocd`) && Header(`Content-Type`, `application/grpc`)
-      priority: 11
+      priority: 101
       services:
         - name: argocd-server
           port: 80
