@@ -7,5 +7,7 @@ resources:
 - traefik-3.2.2.yaml
 # dashboard service is not accessible by default after traefik installation
 - dashboard-service.yaml
+- dashboard-ingress.yaml
+# traefik service
 - deployment.yaml
 - configmap.yaml
