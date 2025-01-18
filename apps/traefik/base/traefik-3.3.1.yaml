@@ -3,12 +3,12 @@
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: kong-traefik
+  name: traefik
   namespace: traefik
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
-    helm.sh/chart: traefik-34.1.0
+    app.kubernetes.io/instance: traefik-traefik
+    helm.sh/chart: traefik-34.0.0
     app.kubernetes.io/managed-by: Helm
   annotations:
 automountServiceAccountToken: false
@@ -17,11 +17,11 @@ automountServiceAccountToken: false
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: kong-traefik-traefik
+  name: traefik-traefik
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
-    helm.sh/chart: traefik-34.1.0
+    app.kubernetes.io/instance: traefik-traefik
+    helm.sh/chart: traefik-34.0.0
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -94,38 +94,38 @@ rules:
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: kong-traefik-traefik
+  name: traefik-traefik
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
-    helm.sh/chart: traefik-34.1.0
+    app.kubernetes.io/instance: traefik-traefik
+    helm.sh/chart: traefik-34.0.0
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: kong-traefik-traefik
+  name: traefik-traefik
 subjects:
   - kind: ServiceAccount
-    name: kong-traefik
+    name: traefik
     namespace: traefik
 ---
 # Source: traefik/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: kong-traefik
+  name: traefik
   namespace: traefik
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
-    helm.sh/chart: traefik-34.1.0
+    app.kubernetes.io/instance: traefik-traefik
+    helm.sh/chart: traefik-34.0.0
     app.kubernetes.io/managed-by: Helm
   annotations:
 spec:
   type: LoadBalancer
   selector:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
+    app.kubernetes.io/instance: traefik-traefik
   ports:
   - port: 80
     name: "web"
@@ -144,9 +144,9 @@ metadata:
     ingressclass.kubernetes.io/is-default-class: "true"
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
-    helm.sh/chart: traefik-34.1.0
+    app.kubernetes.io/instance: traefik-traefik
+    helm.sh/chart: traefik-34.0.0
     app.kubernetes.io/managed-by: Helm
-  name: kong-traefik
+  name: traefik
 spec:
   controller: traefik.io/ingress-controller

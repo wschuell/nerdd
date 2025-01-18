@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kong-traefik
+  name: traefik
   namespace: traefik
   labels:
     app.kubernetes.io/name: traefik
-    app.kubernetes.io/instance: kong-traefik
-    helm.sh/chart: traefik-34.1.0
+    app.kubernetes.io/instance: traefik-traefik
+    helm.sh/chart: traefik-34.0.0
     app.kubernetes.io/managed-by: Helm
   annotations:
 spec:
@@ -15,7 +15,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: traefik
-      app.kubernetes.io/instance: kong-traefik
+      app.kubernetes.io/instance: traefik-traefik
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -30,18 +30,18 @@ spec:
         prometheus.io/port: "9100"
       labels:
         app.kubernetes.io/name: traefik
-        app.kubernetes.io/instance: kong-traefik
-        helm.sh/chart: traefik-34.1.0
+        app.kubernetes.io/instance: traefik-traefik
+        helm.sh/chart: traefik-34.0.0
         app.kubernetes.io/managed-by: Helm
     spec:
-      serviceAccountName: kong-traefik
+      serviceAccountName: traefik
       automountServiceAccountToken: true
       terminationGracePeriodSeconds: 60
       hostNetwork: false
       containers:
-      - image: docker.io/traefik:v3.3.2
+      - image: docker.io/traefik:v3.3.1
         imagePullPolicy: IfNotPresent
-        name: kong-traefik
+        name: traefik
         resources:
         readinessProbe:
           httpGet:
@@ -90,7 +90,7 @@ spec:
             mountPath: /tmp
           - name: config-static
             mountPath: /etc/traefik/traefik.yml
-            subPath: traefik.yml
+            subPath: traefik.yml       
         env:
           - name: POD_NAME
             valueFrom:

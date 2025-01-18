@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
 - kubernetes-crd-definition-v1.yaml
 # generated using helm template
-- traefik-3.3.2.yaml
+- traefik-3.3.1.yaml
 # dashboard service is not accessible by default after traefik installation
 - dashboard-service.yaml
 - dashboard-ingress.yaml
