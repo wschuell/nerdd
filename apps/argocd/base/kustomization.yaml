@@ -6,4 +6,4 @@ resources:
 - ingressroute.yaml
 
 patches:
-- path: argocd-cmd-params-cm-patch.yml
+- path: argocd-cmd-params-cm-patch.yaml
