@@ -32,4 +32,4 @@ metadata:
 spec:
   stripPrefix:
     prefixes:
-      - "/argocd"
+      - /argocd

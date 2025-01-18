@@ -5,3 +5,5 @@ metadata:
 data:
   # set server.insecure to true, because tls is applied in traefik
   server.insecure: "true"
+  server.basehref: "/argocd"
+  server.rootpath: "/argocd"
