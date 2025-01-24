@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-ingressroute-https
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/grafana`)
+      services:
+        - name: grafana
+          port: 3000
+      middlewares:
+        - name: grafana-stripprefix
+  tls:
+    certResolver: default
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: grafana-stripprefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /grafana
