@@ -15,6 +15,9 @@ spec:
   template:
     metadata:
       name: '{{index .path.segments 3}}-{{index .path.segments 1}}'
+      annotations:
+        argocd-image-updater.argoproj.io/update-strategy: latest
+        argocd-image-updater.argoproj.io/image-list: 'ghcr.io/shirte/{{index .path.segments 1}}'
     spec:
       # The project the application belongs to.
       project: default
