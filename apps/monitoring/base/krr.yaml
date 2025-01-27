@@ -108,7 +108,7 @@ spec:
         - command:
             - /bin/sh
             - -c
-            - "python krr.py simple   --max-workers 3 --width 2048 -p http://10.110.251.41:9090"
+            - "python krr.py simple --max-workers 3 --width 2048 -p http://10.110.251.41:9090"
           image: robustadev/krr:v1.17.0
           imagePullPolicy: Always
           name: krr
