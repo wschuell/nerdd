@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: grafana-config
   namespace: monitoring
-data:
+stringData:
   grafana.ini: |
     [date_formats]
     default_timezone = UTC
