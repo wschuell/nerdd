@@ -98,3 +98,8 @@ resources:
 - kube-prometheus-0.14.0/prometheusAdapter-deployment.yaml
 - kube-prometheus-0.14.0/blackboxExporter-serviceAccount.yaml
 - kube-prometheus-0.14.0/prometheusOperator-clusterRole.yaml
+
+- https://raw.githubusercontent.com/robusta-dev/krr/refs/heads/main/docs/krr-in-cluster/krr-in-cluster-job.yaml
+
+patchesStrategicMerge:
+- grafana-config-patch.yaml
