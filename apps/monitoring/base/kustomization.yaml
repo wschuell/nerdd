@@ -101,5 +101,5 @@ resources:
 
 - https://raw.githubusercontent.com/robusta-dev/krr/refs/heads/main/docs/krr-in-cluster/krr-in-cluster-job.yaml
 
-patchesStrategicMerge:
+patches:
 - grafana-config-patch.yaml
