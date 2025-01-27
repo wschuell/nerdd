@@ -25,11 +25,11 @@ spec:
               mountPath: "/data"
           resources:
             requests:
-              cpu: 4
-              memory: 3G
+              cpu: 10m
+              memory: 1500Mi
             limits:
-              cpu: 4
-              memory: 6G
+              cpu: 1500m
+              memory: 1500Mi
       volumes:
         - name: data
           persistentVolumeClaim:
