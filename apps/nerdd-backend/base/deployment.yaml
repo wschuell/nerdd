@@ -34,3 +34,11 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: pvc-media
+      # put this container on same host as the database if possible
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: rethinkdb
+              topologyKey: "kubernetes.io/hostname"
