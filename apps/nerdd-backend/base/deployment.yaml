@@ -39,7 +39,8 @@ spec:
         podAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
-              labelSelector:
-                matchLabels:
-                  app: rethinkdb
-              topologyKey: kubernetes.io/hostname
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: rethinkdb
+                topologyKey: kubernetes.io/hostname
