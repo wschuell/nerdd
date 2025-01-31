@@ -1,10 +1,9 @@
-version_settings(constraint='>=0.22.2')
-
 load('ext://git_resource', 'git_checkout')
+load('ext://namespace', 'namespace_inject')
 
 # checkout source code
 project_name = 'nerdd-frontend'
-repository_url = 'https://github.com/molinfo-vienna/nerdd-frontend.git'
+repository_url = 'https://github.com/molinfo-vienna/{}'.format(project_name)
 project_dir = '../../repos/{}'.format(project_name)
 if not os.path.exists(project_dir):
     git_checkout(
@@ -15,18 +14,17 @@ if not os.path.exists(project_dir):
 # build docker image
 docker_build(
     'nerdd-frontend',
-    context='../../repos/nerdd-frontend',
-    dockerfile='Dockerfile.dev',
+    context=project_dir,
     live_update=[
         sync(project_dir, '/app')
     ],
 )
 
-# nerdd
-k8s_yaml('deployment.yml')
+# deploy yaml files
+k8s_yaml(namespace_inject(kustomize('./envs/local/'), 'local'))
 
 k8s_resource(
     'nerdd-frontend',
-    port_forwards=3000,
+    port_forwards='3000:80',
     labels=['frontend']
 )
