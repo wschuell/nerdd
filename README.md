@@ -50,19 +50,9 @@ EOF
 
 * install argocd
 
-## Add a node to the cluster
-* when using microk8s:
-    * on the master node (node16), run ```microk8s add-node`` to get instructions for 
-      addinga new node
-    * copy the command that uses the worker flag and run it on the new worker node
-    * each new node has to use the image registry in the cluster
-    * get the address of the current image registry 
-    ```kubectl -n container-registry get service registry -o jsonpath='{.spec.clusterIP}'```
-    * adapt hosts.toml on the new worker node accordingly (see https://microk8s.io/docs/registry-private#insecure-registry-1 Configuring MicroK8s)
-
 ## Contribute
 
-* Install docker
-* Install a variant of kubernetes, e.g. microk8s or k3s
-* Install tilt
-* ```tilt up```
+* Install a kubernetes distribution, e.g. [microk8s](https://microk8s.io/), 
+  [k3s](https://k3s.io/), [k0s](https://k0sproject.io/) or [Talos](https://www.talos.dev/)
+* Install [tilt](https://docs.tilt.dev/)
+* `tilt up`
