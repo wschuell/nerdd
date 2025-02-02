@@ -25,6 +25,9 @@ k8s_yaml(namespace_inject(kustomize('./envs/local/'), 'local'))
 
 k8s_resource(
     'nerdd-frontend',
+    # deployments and services are automatically added, but config maps are not
+    # -> manually add the nginx config map
+    objects=['nginx-config:configmap'],
     port_forwards='3000:80',
     labels=['frontend']
 )
