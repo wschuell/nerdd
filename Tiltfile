@@ -10,7 +10,7 @@ apps = [
     # 'nerdd-link':'https://github.com/molinfo-vienna/nerdd-link.git',
     # 'nerdd-jobs',
     # 'nerdd-backend'
-    'nerdd-frontend'
+    'nerdd-frontend',
     # 'cypstrate' : 'https://github.com/molinfo-vienna/cypstrate.git',
     # 'cyplebrity',
     # 'hitdexter',
@@ -19,10 +19,13 @@ apps = [
     # 'fame',
     # 'glory',
     # 'gloryx',
+
+    # essential:
+    'storage'
 ]
 
 namespace_create('local')
-k8s_resource(objects=['local'], labels=['general'], new_name='namespace')
+k8s_resource(objects=['local'], labels=['infra'], new_name='namespace')
 
 # load all Tiltfiles
 for app in apps:

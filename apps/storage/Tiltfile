@@ -1,9 +1,11 @@
-version_settings(constraint='>=0.31.2')
+load('ext://git_resource', 'git_checkout')
+load('ext://namespace', 'namespace_inject')
 
-k8s_yaml('storage.yml')
+# deploy yaml files
+k8s_yaml(namespace_inject(kustomize('./envs/local/'), 'local'))
 
 k8s_resource(
     new_name='storage', 
-    objects=['media:persistentvolumeclaim'], 
-    labels=['storage']
+    objects=['pvc-media:persistentvolumeclaim'], 
+    labels=['infra']
 )
