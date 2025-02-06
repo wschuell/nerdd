@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: nginx-main-config
   labels:
     app: nerdd-frontend
 data:
@@ -97,18 +97,6 @@ data:
             gzip on;
             gzip_proxied any;
             gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
-        }
-
-        location /api/ {
-            proxy_pass http://nerdd-backend.dev:8000/;
-        }
-
-        location /websocket/ {
-            proxy_pass http://nerdd-backend.dev:8000/websocket/;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-            proxy_set_header Host $host;
         }
 
         error_page 404 /index.html;
