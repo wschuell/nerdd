@@ -1,5 +1,5 @@
 load('ext://git_resource', 'git_checkout')
-load('ext://namespace', 'namespace_inject')
+load('../../common.Tiltfile', 'kustomize_resource')
 
 # checkout source code
 project_name = 'nerdd-frontend'
@@ -20,14 +20,11 @@ docker_build(
     ],
 )
 
-# deploy yaml files
-k8s_yaml(namespace_inject(kustomize('./envs/local/'), 'local'))
-
-k8s_resource(
-    'nerdd-frontend',
-    # deployments and services are automatically added, but config maps are not
-    # -> manually add the nginx config map
-    objects=['nginx-config:configmap'],
-    port_forwards='3000:80',
+# deploy to kubernetes
+kustomize_resource(
+    workload='nerdd-frontend',
+    kustomization_path='./envs/local/',
+    namespace='local',
+    resource_deps=['nerdd-backend'],
     labels=['frontend']
 )
