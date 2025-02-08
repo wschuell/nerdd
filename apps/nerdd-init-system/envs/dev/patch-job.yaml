@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: nerdd-init-system
+  name: nerdd-init-system-job
 spec:
   template:
     spec:
