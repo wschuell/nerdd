@@ -6,3 +6,4 @@ resources:
 
 patchesStrategicMerge:
   - patch-deployment.yaml
+  - patch-ingressroute.yaml
