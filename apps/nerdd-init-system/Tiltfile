@@ -1,18 +1,10 @@
-version_settings(constraint='>=0.31.2')
+load('../../common.Tiltfile', 'kustomize_resource')
 
-allow_k8s_contexts('default')
-
-# build the docker image
-docker_build(
-    'nerdd-init-system',
-    context='.',
-    dockerfile="Dockerfile",
-)
-
-k8s_yaml('job.yml')
-
-k8s_resource(
-    'nerdd-init-system',
+# deploy to kubernetes
+kustomize_resource(
+    workload='nerdd-init-system',
+    kustomization_path='./envs/local/',
+    namespace='local',
     resource_deps=['kafka', 'keda-operator', 'storage'],
-    labels=["communication"],
+    labels=['infra']
 )
