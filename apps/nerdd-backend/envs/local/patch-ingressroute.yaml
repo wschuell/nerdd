@@ -1,0 +1,13 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nerdd-backend-ingressroute
+spec:
+  routes:
+    - match: PathPrefix(`/api`) || PathPrefix(`/websocket`)
+      kind: Rule
+      services:
+        - name: nerdd-backend
+          port: 8000
+      middlewares:
+        - name: nerdd-backend-stripprefix
