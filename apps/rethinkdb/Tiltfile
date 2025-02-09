@@ -1,0 +1,10 @@
+load('../../common.Tiltfile', 'kustomize_resource')
+
+kustomize_resource(
+    workload='rethinkdb',
+    kustomization_path='./envs/local/',
+    namespace='local',
+    port_forwards=['8084:8080'],
+    resource_deps=['storage'],
+    labels=['infra']
+)
