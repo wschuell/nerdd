@@ -1,0 +1,9 @@
+load('../../common.Tiltfile', 'kustomize_resource')
+
+kustomize_resource(
+    workload='strimzi', 
+    kustomization_path='./envs/local', 
+    namespace='strimzi', 
+    create_namespace=True, 
+    labels=['infra']
+)
