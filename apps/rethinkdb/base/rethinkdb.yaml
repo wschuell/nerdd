@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rethinkdb-deployment
+  metadata:
+    labels: rethinkdb
 spec:
   replicas: 1
   selector:
@@ -17,9 +19,9 @@ spec:
         - name: rethinkdb-container
           image: rethinkdb:2.4.2
           ports:
-            - containerPort: 8080   # administrative HTTP connections
-            - containerPort: 28015  # client driver connections
-            - containerPort: 29015  # intracluster connections
+            - containerPort: 8080 # administrative HTTP connections
+            - containerPort: 28015 # client driver connections
+            - containerPort: 29015 # intracluster connections
           volumeMounts:
             - mountPath: /data
               name: volume
@@ -39,6 +41,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: rethinkdb-service
+  labels:
+    app: rethinkdb
 spec:
   selector:
     app: rethinkdb
@@ -62,6 +66,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: rethinkdb-pvc
+  labels:
+    app: rethinkdb
 spec:
   accessModes:
     - ReadWriteMany
