@@ -3,14 +3,9 @@ kind: Kustomization
 
 resources:
   - kubernetes-crd-definition-v1.yaml
-  # generated using helm template
-  - traefik-3.3.1.yaml
-  # traefik service
+  # generated from traefik 3.3.1 using helm template
+  - service.yaml
   - deployment.yaml
   - configmap.yaml
-  # routes
-  - routes/frontend.yaml
-  - routes/backend.yaml
-  - routes/argocd.yaml
-  - routes/traefik.yaml
-  - routes/grafana.yaml
+  - ingressroute.yaml
+  - middleware.yaml
