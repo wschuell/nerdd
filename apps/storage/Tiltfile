@@ -7,5 +7,6 @@ k8s_yaml(namespace_inject(kustomize('./envs/local/'), 'local'))
 k8s_resource(
     new_name='storage', 
     objects=['pvc-media:persistentvolumeclaim'], 
+    resource_deps=['namespace'],
     labels=['infra']
 )
