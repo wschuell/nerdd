@@ -27,6 +27,3 @@ spec:
         - name: nginx-main-config-volume
           configMap:
             name: nginx-main-config
-        - name: nginx-proxy-config-volume
-          configMap:
-            name: nginx-proxy-config
