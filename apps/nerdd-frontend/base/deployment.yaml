@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nerdd-frontend
-          image: ghcr.io/shirte/nerdd-frontend:latest
+          image: ghcr.io/molinfo-vienna/nerdd-frontend:latest
           ports:
             - containerPort: 80
           volumeMounts:
