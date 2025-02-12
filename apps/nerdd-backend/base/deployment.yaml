@@ -30,6 +30,8 @@ spec:
           volumeMounts:
             - name: data
               mountPath: "/data"
+      imagePullSecrets:
+        - name: ghcr-secret
       volumes:
         - name: data
           persistentVolumeClaim:
