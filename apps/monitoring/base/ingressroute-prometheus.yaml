@@ -11,3 +11,5 @@ spec:
       services:
         - name: prometheus-k8s
           port: 9090
+  tls:
+    certResolver: default
