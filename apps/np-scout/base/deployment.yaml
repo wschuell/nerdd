@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: np-scout
-          image: ghcr.io/shirte/np-scout:latest
+          image: ghcr.io/molinfo-vienna/np-scout:latest
           env:
             - name: KAFKA_BROKER_URL
               value: <to-patch>
