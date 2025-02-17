@@ -7,4 +7,4 @@ resources:
   - topic-results.yaml
   - topic-system.yaml
   # connect kafka metrics with prometheus
-  - service-monitor.yaml
+  - pod-monitor.yaml
