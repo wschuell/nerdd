@@ -22,7 +22,7 @@ def kustomize_resource(workload, kustomization_path, namespace, create_namespace
 
     # add the namespace to the same Tilt group
     if create_namespace:
-        all_objects.append('{}:namespace'.format(namespace))
+        all_objects.append('{}:namespace:default'.format(namespace))
 
     # deploy resources
     k8s_yaml(namespaced_resource_stream)
