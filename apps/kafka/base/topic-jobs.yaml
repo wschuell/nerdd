@@ -7,4 +7,3 @@ metadata:
 spec:
   partitions: 1
   replicas: 1
-  deleteClaim: true
