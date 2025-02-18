@@ -1,0 +1,10 @@
+load('../../common.Tiltfile', 'kustomize_resource')
+
+kustomize_resource(
+    workload='monitoring',
+    kustomization_path='./envs/local/',
+    namespace='monitoring',
+    create_namespace=True,
+    resource_deps=['storage', 'traefik'],
+    labels=["monitoring"]
+)
