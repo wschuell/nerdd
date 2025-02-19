@@ -53,6 +53,9 @@ def get_resource_mapping(yaml=None):
             )
             for line in lines[1:]
         ]
+
+        for resource in resources:
+            resource['namespaced'] = resource['namespaced'] == 'true'
     else:
         # read yaml 
         if type(yaml) == 'string':
@@ -111,7 +114,7 @@ def replace_namespace(yaml, new_namespace, forbidden_namespaces=['default', 'kub
     namespaced_resources = [
         resource['kind']
         for resource in resources.values()
-        if resource['namespaced'] == 'true'
+        if resource['namespaced']
     ]
 
     def _r(obj, path):
