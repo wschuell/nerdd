@@ -2,11 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- kubernetes-crd-definition-v1.yaml
-# generated using helm template
-- traefik-3.3.1.yaml
-# dashboard service is not accessible by default after traefik installation
-- dashboard-ingress.yaml
-# traefik service
-- deployment.yaml
-- configmap.yaml
+  - kubernetes-crd-definition-v1.yaml
+  # generated using helm template
+  - traefik-3.3.1.yaml
+  # traefik service
+  - deployment.yaml
+  - configmap.yaml
+  # routes
+  - routes/frontend.yaml
+  - routes/backend.yaml
+  - routes/argocd.yaml
+  - routes/traefik.yaml
+  - routes/grafana.yaml

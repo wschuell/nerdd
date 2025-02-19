@@ -19,3 +19,11 @@ spec:
           image: ghcr.io/shirte/nerdd-frontend:latest
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: nginx-config-volume
+              subPath: nginx.conf
+              mountPath: /etc/nginx/conf.d/nginx.conf
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config

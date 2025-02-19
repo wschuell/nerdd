@@ -1,15 +1,18 @@
+load('ext://namespace', 'namespace_create')
+load('ext://git_resource', 'git_checkout')
 
-
-# update_settings(k8s_upsert_timeout_secs=60)
+# limit the number of parallel updates
 update_settings(max_parallel_updates=2)
 
-modules = {
-    # 'nerdd-module' : 'https://github.com/molinfo-vienna/nerdd-module.git',
-    # 'nerdd-link':'https://github.com/molinfo-vienna/nerdd-link.git',
-    # 'nerdd-jobs',
-    # 'nerdd-backend'
-    # 'nerdd-frontend',
-    # 'cypstrate' : 'https://github.com/molinfo-vienna/cypstrate.git',
+# essential repositories used by many apps
+base_repositories = [
+    'nerdd-module',
+    'nerdd-link',
+]
+
+# use comments to select services in order to improve speed
+apps = [
+    'cypstrate',
     # 'cyplebrity',
     # 'hitdexter',
     # 'np-scout',
@@ -17,18 +20,34 @@ modules = {
     # 'fame',
     # 'glory',
     # 'gloryx',
-}
 
-# # checkout all modules
-# for directory, repository_url in modules.items():
-#     checkout_dir = './{}'.format(directory)
-#     if not os.path.exists(checkout_dir):
-#         git_checkout(
-#             repository_url, 
-#             checkout_dir=checkout_dir
-#         )
+    # essential:
+    'storage',
+    'traefik',
+    'strimzi',
+    'kafka',
+    'rethinkdb',
+    'nerdd-init-system',
+    'nerdd-backend',
+    'nerdd-frontend',
+    'nerdd-process-jobs',
+    'nerdd-serialize-jobs',
+]
 
-# load all Tiltfiles
-for file in listdir('k8s', recursive=True):
-    if file.endswith('Tiltfile'):
-        include(file)
+# check out base repositories
+for repo in base_repositories:
+    git_checkout(
+        'https://github.com/molinfo-vienna/{}'.format(repo), 
+        checkout_dir='./repos/{}'.format(repo),
+        unsafe_mode=True,
+    )
+
+# create a namespace for apps
+namespace_create('local')
+k8s_resource(objects=['local'], labels=['infra'], new_name='namespace')
+
+# load Tiltfiles of all specified apps
+for app in apps:
+    path_app_tiltfile = './apps/{}/Tiltfile'.format(app)
+    if os.path.exists(path_app_tiltfile):
+        include(path_app_tiltfile)

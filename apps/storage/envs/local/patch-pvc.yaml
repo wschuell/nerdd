@@ -1,0 +1,6 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-media
+spec:
+  storageClassName: null

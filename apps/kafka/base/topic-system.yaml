@@ -9,3 +9,4 @@ spec:
   replicas: 1
   config:
     cleanup.policy: compact
+  deleteClaim: true
