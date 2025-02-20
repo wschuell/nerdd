@@ -3,6 +3,8 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: nerdd-backend-stripprefix
+  labels:
+    app: nerdd-backend
 spec:
   stripPrefix:
     prefixes:
@@ -12,11 +14,13 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: nerdd-backend-ingressroute
+  labels:
+    app: nerdd-backend
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
-    - match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/api`)
+    - match: Host(`dev-nerdd.univie.ac.at`) && (PathPrefix(`/api`) || PathPrefix(`/websocket`))
       kind: Rule
       services:
         - name: nerdd-backend

@@ -5,4 +5,8 @@ resources:
   - ../../base
 
 patchesStrategicMerge:
-  - patch-job.yaml
+  - patch-service.yaml
+  - patch-ingressroute.yaml
+
+patches:
+  - path: patch-middleware.yaml

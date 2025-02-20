@@ -1,10 +1,10 @@
 load('../../common.Tiltfile', 'kustomize_resource')
 
-# deploy to kubernetes
 kustomize_resource(
-    workload='nerdd-init-system',
+    workload='rethinkdb',
     kustomization_path='./envs/local/',
     namespace='local',
-    resource_deps=['kafka', 'keda-operator', 'storage'],
+    port_forwards=['8084:8080'],
+    resource_deps=['storage'],
     labels=['infra']
 )

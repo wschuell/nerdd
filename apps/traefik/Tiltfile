@@ -1,0 +1,10 @@
+load('../../common.Tiltfile', 'kustomize_resource')
+
+kustomize_resource(
+    workload='traefik',
+    kustomization_path='./envs/local/',
+    namespace='traefik',
+    create_namespace=True,
+    port_forwards=['8443:8443', '8000:8000'],
+    labels=['infra']
+)
