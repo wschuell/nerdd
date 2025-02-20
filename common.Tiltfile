@@ -1,100 +1,5 @@
 load('ext://namespace', 'namespace_create', 'namespace_inject')
 
-def get_resource_mapping(yaml=None):
-    if yaml == None: # note: starlark doesn't support "is None"
-        # If yaml is None, we assume that the user wants to retrieve the currently available 
-        # resources. We use kubectl api-resources to get the list of resources.
-        blob = local('kubectl api-resources', quiet=True)
-
-        # The command kubectl api-resources returns a list of all resources that Kubernetes knows 
-        # about. The result looks like this:
-        # NAME         SHORTNAMES  APIGROUP  NAMESPACED   KIND
-        # bindings                           true         Binding
-        # pods         po          v1        true         Pod
-        # deployments  deploy      apps/v1   true         Deployment
-        # ...
-        output = str(blob)
-
-        # split the output into lines
-        lines = output.splitlines()
-
-        # parse the column names from the first line
-        # Note: we can't split column values by space, because some values are empty (spaces). For 
-        # that reason, we need to find the positions of the columns first.
-        positions = []
-        in_column = True
-        start = 0
-        for i in range(len(lines[0])):
-            char = lines[0][i]
-            if char != ' ' and not in_column:
-                positions.append((start, i))
-                start = i
-                in_column = True
-            elif char == ' ' and in_column:
-                in_column = False
-        max_line_length = max([len(line) for line in lines])
-        positions.append((start, max_line_length)) # last column
-
-        column_names = [
-            lines[0][start:end].strip().lower()
-            for start, end in positions
-        ]
-
-        # parse the rest of the lines
-        resources = [
-            dict(
-                zip(
-                    column_names, 
-                    [
-                        line[start:end].strip()
-                        for start, end in positions
-                    ]
-                )
-            )
-            for line in lines[1:]
-        ]
-
-        for resource in resources:
-            resource['namespaced'] = resource['namespaced'] == 'true'
-    else:
-        # read yaml 
-        if type(yaml) == 'string':
-            objects = read_yaml_stream(yaml)
-        elif type(yaml) == 'blob':
-            objects = decode_yaml_stream(yaml)
-        else:
-            fail('only takes string or blob, got: %s' % type(yaml))
-
-        # filter CRDs
-        crds = [
-            obj
-            for obj in objects
-            if obj['kind'] == 'CustomResourceDefinition'
-        ]
-
-        # we only have to figure out NAME, SHORTNAMES, APIVERSION, NAMESPACED and KIND to be 
-        # consistent with the output of kubectl api-resources
-        resources = [
-            dict(
-                name=obj['spec']['names']['plural'],
-                shortnames=obj['spec']['names']['shortNames'] if 'shortNames' in obj['spec']['names'] else '',
-                apiversion=obj['spec']['group'] + '/' + version['name'],
-                namespaced=obj['spec']['scope'] == 'Namespaced',
-                kind=obj['spec']['names']['kind']
-            )
-            for obj in crds
-            for version in obj['spec']['versions']
-        ]
-
-    # make it a dictionary
-    resources_dict = {
-        resource['kind']: resource
-        for resource in resources
-    }
-
-    return resources_dict
-
-
 def replace_namespace(yaml, new_namespace, forbidden_namespaces=['default', 'kube-system']):
     # read yaml 
     if type(yaml) == 'string':
@@ -103,19 +8,6 @@ def replace_namespace(yaml, new_namespace, forbidden_namespaces=['default', 'kub
         objects = decode_yaml_stream(yaml)
     else:
         fail('only takes string or blob, got: %s' % type(yaml))
-
-    # get all resources (and merge)
-    resources = dict(
-        get_resource_mapping(),
-        **get_resource_mapping(yaml)
-    )
-
-    # differentiate in namespaced and non-namespaced resources
-    namespaced_resources = [
-        resource['kind']
-        for resource in resources.values()
-        if resource['namespaced']
-    ]
 
     def _r(obj, path):
         for p in path[:-1]:
@@ -135,8 +27,7 @@ def replace_namespace(yaml, new_namespace, forbidden_namespaces=['default', 'kub
     for obj in objects:
         kind = obj['kind']
 
-        if kind in namespaced_resources:
-            _r(obj, ['metadata', 'namespace'])
+        _r(obj, ['metadata', 'namespace'])
 
         #
         # SPECIAL CASES
@@ -183,7 +74,7 @@ def convert_to_tilt_id(resource_object):
         namespace
     )
 
-def is_handled_by_tilt(resource_object, all_resources):
+def is_handled_by_tilt(resource_object):
     # Tilt will automatically create a k8s_resource for specific resources:
     tilt_workload_resources = ['Deployment', 'Job', 'DaemonSet', "Service"]
 
@@ -217,7 +108,7 @@ def kustomize_resource(workload, kustomization_path, namespace, create_namespace
         for r in resources
         # Specific resources are already handled by Tilt's k8s_resource. Tilt will complain if 
         # we provide them in k8s_resource calls so we filter them here.
-        if not is_handled_by_tilt(r, resources)
+        if not is_handled_by_tilt(r)
     ]
 
     # add the namespace to the same Tilt group
@@ -238,7 +129,7 @@ def kustomize_resource(workload, kustomization_path, namespace, create_namespace
     workloads = [
         r['metadata']['name']
         for r in resources 
-        if is_handled_by_tilt(r, resources) and r['kind'] != "Service"
+        if is_handled_by_tilt(r) and r['kind'] != "Service"
     ]
 
     # Tilt might have already created workloads automatically. If there is already a workload 
