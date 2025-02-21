@@ -1,0 +1,10 @@
+load('../../common.Tiltfile', 'kustomize_resource')
+
+kustomize_resource(
+    workload='external-secrets',
+    kustomization_path='./envs/local/',
+    namespace='external-secrets',
+    create_namespace=True,
+    resource_deps=[],
+    labels=["infra"]
+)
