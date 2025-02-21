@@ -10,4 +10,4 @@ resources:
   # dashboard route (and authorization)
   - ingressroute.yaml
   - middleware.yaml
-  - traefik-dashboard-auth.yaml
+  - dashboard-auth.yaml

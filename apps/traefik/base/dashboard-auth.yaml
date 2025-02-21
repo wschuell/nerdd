@@ -1,0 +1,28 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dashboard-auth
+spec:
+  secretStoreRef:
+    name: my-secret-store
+    kind: SecretStore
+  target:
+    name: dashboard-auth
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: fergie
+        password: "{{ .password}}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: Password
+          name: dashboard-auth-generator
+---
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: Password
+metadata:
+  name: dashboard-auth-generator
+spec:
+  length: 25
