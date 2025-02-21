@@ -1,0 +1,28 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: prometheus-auth
+spec:
+  secretStoreRef:
+    name: my-secret-store
+    kind: SecretStore
+  target:
+    name: prometheus-auth
+    template:
+      type: kubernetes.io/basic-auth
+      data:
+        username: apl.de.ap
+        password: "{{ .password}}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: Password
+          name: prometheus-auth-generator
+---
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: Password
+metadata:
+  name: prometheus-auth-generator
+spec:
+  length: 25
