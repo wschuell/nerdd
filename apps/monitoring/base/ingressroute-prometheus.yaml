@@ -13,5 +13,6 @@ spec:
           port: 9090
       middlewares:
         - name: prometheus-strip-prefix
+        - name: prometheus-auth
   tls:
     certResolver: default
