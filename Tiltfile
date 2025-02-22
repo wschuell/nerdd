@@ -1,6 +1,7 @@
 load('ext://namespace', 'namespace_create')
 load('ext://git_resource', 'git_checkout')
 
+
 # limit the number of parallel updates
 update_settings(max_parallel_updates=2)
 
@@ -14,7 +15,7 @@ base_repositories = [
 apps = [
     # 'cypstrate',
     # 'cyplebrity',
-    # 'hitdexter',
+    'hitdexter',
     # 'np-scout',
     # 'skindoctor',
     # 'fame',
@@ -23,6 +24,7 @@ apps = [
 
     # essential:
     'storage',
+    'external-secrets',
     'traefik',
     'strimzi',
     'kafka',
