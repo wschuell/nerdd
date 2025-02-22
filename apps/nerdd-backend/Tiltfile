@@ -29,15 +29,12 @@ if not os.path.exists(project_dir):
 docker_build(
     'nerdd-backend',
     context=project_dir,
-    live_update=[
-        sync(project_dir, '/app')
-    ],
 )
 
 kustomize_resource(
     workload='nerdd-backend',
     kustomization_path='./envs/local/',
     namespace='local',
-    resource_deps=['kafka', 'storage', 'rethinkdb'],
+    resource_deps=['kafka', 'storage', 'rethinkdb', 'traefik'],
     labels=['backend']
 )
