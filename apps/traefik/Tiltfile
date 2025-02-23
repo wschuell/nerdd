@@ -6,5 +6,6 @@ kustomize_resource(
     namespace='traefik',
     create_namespace=True,
     port_forwards=['8443:8443', '8000:8000'],
+    resource_deps=['external-secrets'],
     labels=['infra']
 )
