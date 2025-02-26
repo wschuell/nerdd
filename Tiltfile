@@ -13,7 +13,7 @@ base_repositories = [
 # use comments to select services in order to improve speed
 apps = [
     'cypstrate',
-    # 'cyplebrity',
+    'cyplebrity',
     # 'hitdexter',
     # 'np-scout',
     # 'skindoctor',

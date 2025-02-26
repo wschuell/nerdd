@@ -97,7 +97,8 @@ resources:
   - kube-prometheus-0.14.0/prometheusAdapter-deployment.yaml
   - kube-prometheus-0.14.0/blackboxExporter-serviceAccount.yaml
   - kube-prometheus-0.14.0/prometheusOperator-clusterRole.yaml
-  - ingressroute.yaml
+  - ingressroute-grafana.yaml
+  - ingressroute-prometheus.yaml
   - krr.yaml
 
 patchesStrategicMerge:

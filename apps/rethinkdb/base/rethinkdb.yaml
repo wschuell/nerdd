@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rethinkdb-deployment
-  metadata:
-    labels: rethinkdb
+  labels:
+    app: rethinkdb
 spec:
   replicas: 1
   selector:
