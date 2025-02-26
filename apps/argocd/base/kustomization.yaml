@@ -6,6 +6,7 @@ resources:
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.3/manifests/install.yaml
   # argocd image updater
   - https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/v0.15.2/manifests/install.yaml
+  - argocd-image-updater-config.yaml
   # route
   - ingressroute.yaml
 
