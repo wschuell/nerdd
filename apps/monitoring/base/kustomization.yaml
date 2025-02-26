@@ -103,3 +103,4 @@ resources:
 
 patchesStrategicMerge:
   - grafana-config-patch.yaml
+  - prometheus-config-patch.yaml
