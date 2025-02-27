@@ -1,0 +1,8 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: argocd-strip-prefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /argocd
