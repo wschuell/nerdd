@@ -12,8 +12,6 @@ spec:
       services:
         - name: argocd-server
           port: 80
-      middlewares:
-        - name: argocd-strip-prefix
     - kind: Rule
       match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/argocd`) && Header(`Content-Type`, `application/grpc`)
       priority: 101
@@ -21,7 +19,5 @@ spec:
         - name: argocd-server
           port: 80
           scheme: h2c
-      middlewares:
-        - name: argocd-strip-prefix
   tls:
     certResolver: default
