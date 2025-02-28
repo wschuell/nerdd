@@ -1,7 +1,7 @@
 # Nerdd
 
-NERDD is a platform to create and run cheminformatics prediction models. This repository provides 
-the configuration files to setup and run all components on a Kubernetes cluster.
+NERDD is a platform to create and run prediction models in computational chemistry. This repository 
+provides the configuration files for setting up and running all components on a Kubernetes cluster.
 
 ## Prerequisites
 
@@ -61,9 +61,20 @@ argocd app delete nerdd
 kubectl -n rook-ceph patch cephcluster rook-ceph --type merge -p '{"spec":{"cleanupPolicy":{"confirmation":"yes-really-destroy-data"}}}'
 ```
 
+## Troubleshooting
+
+* Running tilt up leads to error messages of the form ```error: error upgrading connection: error 
+dialing backend: tls: failed to verify certificate: x509: certificate is valid for 
+<list of IP addresses>, not <IP address>```
+  * fix: refresh Kubernetes certificates, e.g. using ```sudo microk8s refresh-certs --cert ca.crt```
+
+
 ## Contribute
 
 * Install docker
 * Install a variant of kubernetes, e.g. microk8s, Talos, k3s or kind
 * Install tilt
 * ```tilt up```
+* visit localhost:10350 for tilt dashboard
+* visit localhost:8443 for frontend application
+* visit localhost:8443/api/ for backend api
