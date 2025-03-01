@@ -6,3 +6,6 @@ resources:
 
 patchesStrategicMerge:
   - patch-kafka.yaml
+  - patch-topic-jobs.yaml
+  - patch-topic-results.yaml
+  - patch-topic-system.yaml
