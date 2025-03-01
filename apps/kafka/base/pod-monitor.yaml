@@ -1,0 +1,18 @@
+# https://github.com/strimzi/strimzi-kafka-operator/blob/820425f1e9e0b85eadd61959d257bdc0f3a030cc/examples/metrics/prometheus-install/strimzi-pod-monitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: kafka-resources-metrics
+  labels:
+    app: strimzi
+    release: prometheus-k8s
+spec:
+  selector:
+    matchExpressions:
+      - key: "strimzi.io/kind"
+        operator: In
+        values:
+          ["Kafka", "KafkaConnect", "KafkaMirrorMaker", "KafkaMirrorMaker2"]
+  podMetricsEndpoints:
+    - path: /metrics
+      port: tcp-prometheus
