@@ -35,3 +35,5 @@ spec:
   entityOperator:
     topicOperator: {}
     userOperator: {}
+  # export all metrics so we can load them in Prometheus / Grafana
+  kafkaExporter: {}

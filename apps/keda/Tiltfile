@@ -1,0 +1,10 @@
+load('../../common.Tiltfile', 'kustomize_resource')
+
+kustomize_resource(
+    workload='keda',
+    kustomization_path='./envs/local/',
+    namespace='keda',
+    create_namespace=True,
+    resource_deps=['kafka'],
+    labels=["infra"]
+)
