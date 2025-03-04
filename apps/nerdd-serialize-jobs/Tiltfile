@@ -29,5 +29,5 @@ kustomize_resource(
     kustomization_path='./envs/local',
     namespace='local',
     resource_deps=['kafka', 'keda', 'storage'],
-    labels=["infra"],
+    labels=["services"],
 )
