@@ -1,37 +1,28 @@
-version_settings(constraint='>=0.31.2')
-
 load('ext://git_resource', 'git_checkout')
+load('../../common.Tiltfile', 'kustomize_resource')
 
 # checkout source code
-repository_url = 'https://github.com/molinfo-vienna/skin-doctor.git'
-project_name = 'skin-doctor'
-project_dir = '../../repos/{}'.format(project_name)
+project_name = 'skin-doctor-cp'
+repository_name = 'skin-doctor'
+repository_url = 'https://github.com/molinfo-vienna/{}'.format(repository_name)
+project_dir = '../../repos/{}'.format(repository_name)
 if not os.path.exists(project_dir):
     git_checkout(
         repository_url, 
         checkout_dir=project_dir
     )
 
-# build the docker image
-custom_build(
-    'skin-doctor-cp',
-    command="docker buildx build -f ../../k8s/skin-doctor/Dockerfile -t $EXPECTED_REF --build-context nerdd-link=../nerdd-link --build-context nerdd-module=../nerdd-module .",
-    deps=[project_dir, '../../repos/nerdd-module', '../../repos/nerdd-link', '.'],
-    dir=project_dir,
-    live_update=[
-        sync(project_dir, '/app'),
-        sync('../../repos/nerdd-module', '/deps/nerdd-module'),
-        sync('../../repos/nerdd-link', '/deps/nerdd-link'),
-        run('touch /app/RESTART')
-    ]
+docker_build(
+    project_name,
+    dockerfile='{}/Dockerfile.skin-doctor-cp'.format(project_dir),
+    context=project_dir,
 )
 
-k8s_yaml('deployment.yml')
-# k8s_yaml('scaler.yml')
-
-k8s_resource(
-    'skin-doctor-cp',
-    # objects=['skin-doctor-scaler'],
-    resource_deps=['kafka'],
-    labels=["modules"]
+# deploy to kubernetes
+kustomize_resource(
+    workload=project_name,
+    kustomization_path='./envs/local/',
+    namespace='local',
+    resource_deps=['kafka', 'keda', 'storage'],
+    labels=['modules']
 )
