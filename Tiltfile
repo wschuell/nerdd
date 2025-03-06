@@ -15,9 +15,10 @@ base_repositories = [
 apps = [
     # 'cypstrate',
     # 'cyplebrity',
-    'hitdexter',
+    # 'hitdexter',
     # 'np-scout',
-    # 'skindoctor',
+    'skin-doctor-cp',
+    'skin-doctor-ternary',
     # 'fame',
     # 'glory',
     # 'gloryx',
