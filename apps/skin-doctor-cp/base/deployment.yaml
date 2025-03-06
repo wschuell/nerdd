@@ -29,6 +29,8 @@ spec:
             limits:
               cpu: 1
               memory: 5Gi
+      imagePullSecrets:
+        - name: ghcr-secret
       volumes:
         - name: data
           persistentVolumeClaim:
