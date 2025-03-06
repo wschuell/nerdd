@@ -1,58 +1,69 @@
 # Nerdd
 
+NERDD is a platform to create and run cheminformatics prediction models. This repository provides 
+the configuration files to setup and run all components on a Kubernetes cluster.
+
+## Prerequisites
+
+* Kubernetes cluster
+* ArgoCD deployed in that cluster
+* optional (but recommended): 
+  * at least 3 worker nodes (for Ceph Rook)
+  * at least 3 **unpartitioned** disks on different worker nodes (for Ceph Rook)
+
+## Installation
+
+* Option 1: kubectl
+```sh
+kubectl apply -f https://raw.githubusercontent.com/molinfo-vienna/nerdd/refs/heads/main/root.yaml
+```
+
+* Option 1: ArgoCD CLI
+```sh
+argocd app create nerdd \
+  --repo https://github.com/molinfo-vienna/nerdd \
+  --path / \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default
+```
+
+* Option 2: ArgoCD Web UI
+  * (sign in)
+  * create a new app (by clicking on "+ New App" on the top left)
+  * set **application name** to **nerdd**
+  * set **project name** to **default**
+  * set **repository URL** to **https://github.com/molinfo-vienna/nerdd**
+  * set **path** to **/**
+  * set **cluster URL** to **https://kubernetes.default.svc**
+  * set **namespace** to **default**
+
+
 ## Infrastructure
 
+The NERDD infrastructure is managed by ArgoCD and the structure of this repository follows best 
+practices presented in [this blog post](https://codefresh.io/blog/how-to-structure-your-argo-cd-repositories-using-application-sets/) and 
+[the corresponding repository](https://github.com/kostis-codefresh/many-appsets-demo/tree/main). In 
+a nutshell:
+* the folder `apps` contains all components necessary to run NERDD on a kubernetes cluster,
+* `appsets` specifies all different environments (e.g. infra, dev, prod), and
+* `waves` orchestrates the order in which environments are installed (e.g. infra before dev),
+* `root.yaml` is the entrypoint pointing to all waves available.
 
-This projects provides three parts:
-* Kafka: Enables multiple services to communicate with each other. We use the Strimzi 
-  Kafka Operator for setting up a Kafka cluster (see [their Github 
-  project](https://github.com/strimzi/strimzi-kafka-operator/)). 
-* Redpanda: A graphical user interface to track Kafka topics.
-* KEDA: Automatically scales applications.
+The concept of `waves` is an extension (not discussed in the blog post) in order to avoid having 
+multiple git repositories for infrastructure and code. Especially, it enables specifying the order 
+of how apps are deployed.
 
+## Uninstall
 
-## Add a module to the cluster
-
-* We assume that we already have a Python repository that implements a NERDD module
-  (see https://github.com/molinfo-vienna/nerdd-module). Specifically, it contains a
-  model class, say ```testmodule.TestModel```.
-* Copy the folder ```template``` in this repository and give it the same name like your
-  repository (e.g. testmodule).
-* 
-
-## Create cluster from scratch
-
-* (maybe install docker - depends on next step)
-* install a variant of kubernetes, e.g. microk8s or k3s
-* enable dashboard, dns, image registry, metrics-server, hostpath-storage
+```sh
+argocd app delete nerdd
+# confirm that all data will be destroyed
+kubectl -n rook-ceph patch cephcluster rook-ceph --type merge -p '{"spec":{"cleanupPolicy":{"confirmation":"yes-really-destroy-data"}}}'
 ```
-microk8s enable dashboard
-microk8s enable dns
-microk8s enable registry
-microk8s enable metrics-server
-microk8s enable hostpath-storage
-```
-* create a namespace argo: ```kubectl create namespace argo```
-* create a secret called github-credentials within this namespace argo and provide a
-  username of the molinfo-vienna team together with a personal access token as password
-```
-kubectl apply -n argo -f - <<EOF
-apiVersion: v1
-kind: Secret
-metadata:  
-  name: github-credentials
-type: Opaque
-data:
-  username: $(echo -n "<username>" | base64 -w0)
-  password: $(echo -n "<access_token>" | base64 -w0)
-EOF
-```
-
-* install argocd
 
 ## Contribute
 
-* Install a kubernetes distribution, e.g. [microk8s](https://microk8s.io/), 
-  [k3s](https://k3s.io/), [k0s](https://k0sproject.io/) or [Talos](https://www.talos.dev/)
-* Install [tilt](https://docs.tilt.dev/)
-* `tilt up`
+* Install docker
+* Install a variant of kubernetes, e.g. microk8s, Talos, k3s or kind
+* Install tilt
+* ```tilt up```
