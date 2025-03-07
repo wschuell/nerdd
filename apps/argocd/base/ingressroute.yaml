@@ -19,5 +19,6 @@ spec:
         - name: argocd-server
           port: 80
           scheme: h2c
+    # important: do not use a middleware to strip the prefix "/argocd" - it doesn't work
   tls:
     certResolver: default
