@@ -4,4 +4,4 @@ metadata:
   name: auth
 spec:
   basicAuth:
-    secret: secretName # Kubernetes secret named "secretName"
+    secret: traefik-auth
