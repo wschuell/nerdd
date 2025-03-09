@@ -13,18 +13,19 @@ load('../../common.Tiltfile', 'kustomize_resource')
 #         run('touch /app/RESTART')
 #     ]
 # )
+project_name = 'nerdd-process-jobs'
 project_dir = '../../repos/nerdd-link'
 docker_build(
-    'nerdd-process-jobs',
+    project_name,
     context=project_dir,
-    dockerfile='{}/Dockerfile.processing'.format(project_dir),
+    dockerfile='{}/Dockerfile.{}'.format(project_dir, project_name),
     live_update=[
         sync(project_dir, '/app')
     ],
 )
 
 kustomize_resource(
-    'nerdd-process-jobs',
+    project_name,
     kustomization_path='./envs/local',
     namespace='local',
     resource_deps=['kafka', 'keda', 'storage'],
