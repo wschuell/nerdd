@@ -8,3 +8,4 @@ spec:
       containers:
         - name: nerdd-frontend
           image: nerdd-frontend:latest
+      imagePullSecrets:
