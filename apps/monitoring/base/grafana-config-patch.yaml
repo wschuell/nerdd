@@ -9,6 +9,6 @@ stringData:
     default_timezone = UTC
     
     [server]
-    domain: dev-nerdd.univie.ac.at
-    root_url: https://dev-nerdd.univie.ac.at/grafana/
+    domain: nerdd.univie.ac.at
+    root_url: https://nerdd.univie.ac.at/grafana/
     serve_from_sub_path: true
