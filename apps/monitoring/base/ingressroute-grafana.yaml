@@ -7,7 +7,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`dev-nerdd.univie.ac.at`) && PathPrefix(`/grafana`)
+      match: Host(`nerdd.univie.ac.at`) && PathPrefix(`/grafana`)
       services:
         - name: grafana
           port: 3000
