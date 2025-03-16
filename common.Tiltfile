@@ -76,7 +76,7 @@ def convert_to_tilt_id(resource_object):
 
 def is_handled_by_tilt(resource_object):
     # Tilt will automatically create a k8s_resource for specific resources:
-    tilt_workload_resources = ['Deployment', 'Job', 'DaemonSet', "Service"]
+    tilt_workload_resources = ['Deployment', 'Job', 'DaemonSet', "Service", "StatefulSet", "Pod"]
 
     # special case: services are assigned by Tilt if there is a matching workload resource
     # if resource_object['kind'] == 'Service':
