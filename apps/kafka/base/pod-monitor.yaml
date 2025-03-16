@@ -5,7 +5,6 @@ metadata:
   name: kafka-resources-metrics
   labels:
     app: strimzi
-    release: prometheus-k8s
 spec:
   selector:
     matchExpressions:
