@@ -4,4 +4,4 @@ metadata:
   name: auth
 spec:
   basicAuth:
-    secret: traefik-auth
+    secret: traefik-dashboard-auth
