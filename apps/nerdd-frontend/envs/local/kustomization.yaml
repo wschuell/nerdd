@@ -6,4 +6,14 @@ resources:
 
 patchesStrategicMerge:
   - patch-deployment.yaml
-  - patch-ingressroute.yaml
+
+patches:
+  - target:
+      kind: IngressRoute
+      name: nerdd-frontend-ingressroute-https
+    patch: |
+      - op: replace
+        path: /spec/routes/0/match
+        value: PathPrefix(`/`)
+      - op: remove
+        path: /spec/tls
