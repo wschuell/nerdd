@@ -7,7 +7,8 @@ spec:
   template:
     spec:
       containers:
-        - env:
+        - name: grafana
+          env:
             - name: GF_SECURITY_ADMIN_USER
               valueFrom:
                 secretKeyRef:
