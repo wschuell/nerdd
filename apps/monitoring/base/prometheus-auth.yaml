@@ -3,9 +3,6 @@ kind: ExternalSecret
 metadata:
   name: prometheus-auth
 spec:
-  secretStoreRef:
-    name: my-secret-store
-    kind: SecretStore
   target:
     name: prometheus-auth
     template:

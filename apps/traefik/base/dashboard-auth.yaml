@@ -3,9 +3,6 @@ kind: ExternalSecret
 metadata:
   name: dashboard-auth
 spec:
-  secretStoreRef:
-    name: my-secret-store
-    kind: SecretStore
   target:
     name: dashboard-auth
     template:

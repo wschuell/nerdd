@@ -1,27 +1,25 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: traefik-dashboard-auth
+  name: grafana-auth
 spec:
-  secretStoreRef:
-    name: my-secret-store
-    kind: SecretStore
   target:
-    name: traefik-dashboard-auth
+    name: grafana-auth
     template:
+      type: kubernetes.io/basic-auth
       data:
-        username: fergie
+        username: taboo
         password: "{{ .password}}"
   dataFrom:
     - sourceRef:
         generatorRef:
           apiVersion: generators.external-secrets.io/v1alpha1
           kind: Password
-          name: dashboard-admin-generator
+          name: grafana-auth-generator
 ---
 apiVersion: generators.external-secrets.io/v1alpha1
 kind: Password
 metadata:
-  name: dashboard-admin-generator
+  name: grafana-auth-generator
 spec:
   length: 25

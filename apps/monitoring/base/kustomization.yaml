@@ -103,7 +103,9 @@ resources:
   - prometheus-auth.yaml
   - prometheus-auth-middleware.yaml
   - prometheus-strip-prefix-middleware.yaml
+  - grafana-auth.yaml
 
 patchesStrategicMerge:
   - grafana-config-patch.yaml
   - prometheus-config-patch.yaml
+  - grafana-deployment-patch.yaml
