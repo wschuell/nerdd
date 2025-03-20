@@ -1,6 +1,6 @@
 load('ext://namespace', 'namespace_create', 'namespace_inject')
 
-def replace_namespace(yaml, new_namespace, forbidden_namespaces=['default', 'kube-system']):
+def replace_namespace(yaml, new_namespace, keep_namespaces=['default', 'kube-system']):
     # read yaml 
     if type(yaml) == 'string':
         objects = read_yaml_stream(yaml)
@@ -19,7 +19,7 @@ def replace_namespace(yaml, new_namespace, forbidden_namespaces=['default', 'kub
         # check if
         # a) the key does not exist (-> unspecified hints at patchable namespace)
         # b) the key does exist and is not in the forbidden namespaces (e.g. "default")
-        if (path[-1] not in obj) or (obj[path[-1]] not in forbidden_namespaces):
+        if (path[-1] not in obj) or (obj[path[-1]] not in keep_namespaces):
             obj[path[-1]] = new_namespace
 
 
@@ -93,13 +93,20 @@ def is_handled_by_tilt(resource_object):
     return resource_object['kind'] in tilt_workload_resources
 
 
-def kustomize_resource(workload, kustomization_path, namespace, create_namespace=False, **kwargs):
+def kustomize_resource(
+        workload, 
+        kustomization_path, 
+        namespace, 
+        create_namespace=False, 
+        keep_namespaces=['default', 'kube-system'], 
+        **kwargs
+    ):
     # all resources should be loaded to the given namespace and grouped in Tilt
     # -> load all resources with kustomize
     # -> inject the namespace to all resources
     # -> collect names of all resources using decode_yaml_stream
     resource_stream = kustomize(kustomization_path)
-    resource_stream = replace_namespace(resource_stream, namespace)
+    resource_stream = replace_namespace(resource_stream, namespace, keep_namespaces)
     resource_stream = fix_names(resource_stream)
     resources = decode_yaml_stream(resource_stream)
 
