@@ -100,7 +100,9 @@ resources:
   - ingressroute-grafana.yaml
   - ingressroute-prometheus.yaml
   - krr.yaml
-  - middleware.yaml
+  - prometheus-auth.yaml
+  - prometheus-auth-middleware.yaml
+  - prometheus-strip-prefix-middleware.yaml
 
 patchesStrategicMerge:
   - grafana-config-patch.yaml
