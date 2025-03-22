@@ -27,9 +27,6 @@ if not os.path.exists(project_dir):
 docker_build(
     project_name,
     context=project_dir,
-    live_update=[
-        sync(project_dir, '/app')
-    ],
 )
 
 # deploy to kubernetes
