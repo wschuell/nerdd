@@ -44,7 +44,6 @@ resources:
   - kube-prometheus-0.14.0/alertmanager-serviceMonitor.yaml
   - kube-prometheus-0.14.0/grafana-dashboardSources.yaml
   - kube-prometheus-0.14.0/prometheusOperator-prometheusRule.yaml
-  - kube-prometheus-0.14.0/prometheus-roleSpecificNamespaces.yaml
   - kube-prometheus-0.14.0/prometheus-serviceMonitor.yaml
   - kube-prometheus-0.14.0/grafana-networkPolicy.yaml
   - kube-prometheus-0.14.0/alertmanager-networkPolicy.yaml
@@ -64,7 +63,6 @@ resources:
   - kube-prometheus-0.14.0/setup/0alertmanagerConfigCustomResourceDefinition.yaml
   - kube-prometheus-0.14.0/blackboxExporter-deployment.yaml
   - kube-prometheus-0.14.0/nodeExporter-clusterRoleBinding.yaml
-  - kube-prometheus-0.14.0/prometheus-roleBindingSpecificNamespaces.yaml
   - kube-prometheus-0.14.0/prometheusAdapter-roleBindingAuthReader.yaml
   - kube-prometheus-0.14.0/grafana-prometheusRule.yaml
   - kube-prometheus-0.14.0/kubeStateMetrics-deployment.yaml
@@ -97,11 +95,50 @@ resources:
   - kube-prometheus-0.14.0/prometheusAdapter-deployment.yaml
   - kube-prometheus-0.14.0/blackboxExporter-serviceAccount.yaml
   - kube-prometheus-0.14.0/prometheusOperator-clusterRole.yaml
+  - kube-prometheus-0.14.0/prometheus-roleSpecificNamespaces.yaml
+  - kube-prometheus-0.14.0/prometheus-roleBindingSpecificNamespaces.yaml
   - grafana-ingressroute.yaml
   - prometheus-ingressroute.yaml
   - grafana-auth.yaml
 
-patchesStrategicMerge:
-  - grafana-config-patch.yaml
-  - prometheus-config-patch.yaml
-  - grafana-deployment-patch.yaml
+patches:
+  - target:
+      kind: Secret
+      name: grafana-config
+      namespace: monitoring
+    patch: |
+      - op: replace
+        path: /stringData/grafana.ini
+        value: |
+          [date_formats]
+          default_timezone = UTC
+
+          [server]
+          root_url = %(protocol)s://%(domain)s/grafana/
+          serve_from_sub_path = true
+  - target:
+      kind: Deployment
+      name: grafana
+      namespace: monitoring
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/env
+        value:
+          - name: GF_SECURITY_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                name: grafana-auth
+                key: username
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: grafana-auth
+                key: password
+  - target:
+      kind: Prometheus
+      name: k8s
+      namespace: monitoring
+    patch: |
+      - op: replace
+        path: /spec/externalUrl
+        value: /prometheus
