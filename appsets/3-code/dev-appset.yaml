@@ -18,7 +18,6 @@ spec:
       annotations:
         argocd-image-updater.argoproj.io/update-strategy: newest-build
         argocd-image-updater.argoproj.io/image-list: "ghcr.io/molinfo-vienna/{{index .path.segments 1}}"
-        argocd-image-updater.argoproj.io/pullsecret: argocd/ghcr-secret
     spec:
       # The project the application belongs to.
       project: default
