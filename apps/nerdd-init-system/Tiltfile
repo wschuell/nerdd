@@ -6,5 +6,5 @@ kustomize_resource(
     kustomization_path='./envs/local/',
     namespace='local',
     resource_deps=['kafka', 'keda-operator', 'storage'],
-    labels=['infra']
+    labels=['services']
 )
