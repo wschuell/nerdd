@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - ghcr.io/molinfo-vienna/cyplebrity:latest@sha256:5a7d37f7d334d4f0986496ee1355fb4ef8f830fe83df1cdced7334cfb855746b
+  - ghcr.io/molinfo-vienna/cyplebrity:latest@sha256:9434d06f4a2dcf3ea458594f457006d8c091dff64a60792a04420826291bec16
