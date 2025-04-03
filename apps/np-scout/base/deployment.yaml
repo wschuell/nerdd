@@ -18,6 +18,13 @@ spec:
         - name: np-scout
           image: ghcr.io/molinfo-vienna/np-scout:latest
           command: ["/env/bin/nerdd_prediction_server"]
+          resources:
+            requests:
+              cpu: 10m
+              memory: 1Gi
+            limits:
+              cpu: "1"
+              memory: 2Gi
           volumeMounts:
             - name: data
               mountPath: "/data"
