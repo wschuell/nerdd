@@ -38,7 +38,7 @@ else:
             sync("../../repos/nerdd-module", "/deps/nerdd-module"),
             sync("../../repos/nerdd-link", "/deps/nerdd-link"),
         ],
-        entrypoint="micromamba run -p /env nerdd_prediction_server glory.GloryModel --broker-url ${KAFKA_BROKER_URL} --data-dir /data"
+        entrypoint="micromamba run -p /env nerdd_prediction_server glory.GloryModel --broker-url kafka-cluster-kafka-bootstrap.local:9092 --data-dir /data"
     )
 
 # deploy to kubernetes
