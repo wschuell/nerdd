@@ -17,9 +17,7 @@ spec:
       containers:
         - name: glory
           image: ghcr.io/molinfo-vienna/glory:latest
-          env:
-            - name: KAFKA_BROKER_URL
-              value: <to-patch>
+          command: ["/env/bin/nerdd_prediction_server"]
           resources:
             requests:
               cpu: 10m

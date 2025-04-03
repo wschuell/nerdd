@@ -7,6 +7,11 @@ spec:
     spec:
       containers:
         - name: glory
-          env:
-            - name: KAFKA_BROKER_URL
-              value: kafka-cluster-kafka-bootstrap.dev:9092
+          args:
+            [
+              "glory.GloryModel",
+              "--broker-url",
+              "kafka-cluster-kafka-bootstrap.dev:9092",
+              "--data-dir",
+              "/data",
+            ]
