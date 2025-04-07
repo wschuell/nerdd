@@ -67,7 +67,12 @@ kubectl -n rook-ceph patch cephcluster rook-ceph --type merge -p '{"spec":{"clea
 dialing backend: tls: failed to verify certificate: x509: certificate is valid for 
 <list of IP addresses>, not <IP address>```
   * fix: refresh Kubernetes certificates, e.g. using ```sudo microk8s refresh-certs --cert ca.crt```
-
+* `tilt up` is not able to clean up kafka topics
+  ```bash
+  kubectl patch kafkatopic/jobs -n local --type=merge  --patch '{"metadata":{"finalizers":[]}}'
+  kubectl patch kafkatopic/results -n local --type=merge  --patch '{"metadata":{"finalizers":[]}}'
+  kubectl patch kafkatopic/system -n local --type=merge  --patch '{"metadata":{"finalizers":[]}}'
+  ```
 
 ## Contribute
 
