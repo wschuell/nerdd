@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fame3r
+  labels:
+    app: fame3r
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fame3r
+  template:
+    metadata:
+      labels:
+        app: fame3r
+    spec:
+      containers:
+        - name: fame3r
+          image: ghcr.io/shirte/fame3r:latest
+          env:
+            - name: KAFKA_BROKER_URL
+              value: <to-patch>
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+            limits:
+              cpu: "4"
+              memory: 9Gi
+      imagePullSecrets:
+        - name: ghcr-secret
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-media
