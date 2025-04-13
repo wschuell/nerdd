@@ -1,6 +1,6 @@
 # Nerdd
 
-NERDD is a platform to create and run prediction models in computational chemistry. This repository 
+NERDD is a platform to create and run prediction models for computational chemistry. This repository 
 provides the configuration files for setting up and running all components on a Kubernetes cluster.
 
 ## Prerequisites
