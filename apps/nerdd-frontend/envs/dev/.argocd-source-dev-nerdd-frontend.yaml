@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - ghcr.io/molinfo-vienna/nerdd-frontend:latest@sha256:856a9a2e04f7aece3daafbd51446e0871efeceba9dd32ac80856dec5fa6feb60
+  - ghcr.io/molinfo-vienna/nerdd-frontend:latest@sha256:d019f9658f13dc9917ef109eacf2640bc4717a5cad719265cbc042c8a877e1e3
