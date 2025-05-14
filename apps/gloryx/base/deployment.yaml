@@ -16,13 +16,22 @@ spec:
     spec:
       containers:
         - name: gloryx
-          image: ghcr.io/shirte/gloryx:latest
+          image: ghcr.io/molinfo-vienna/gloryx:latest
           env:
             - name: KAFKA_BROKER_URL
               value: <to-patch>
           volumeMounts:
             - name: data
               mountPath: "/data"
+          resources:
+            requests:
+              cpu: 10m
+              memory: 1Gi
+            limits:
+              cpu: "10"
+              memory: 7Gi
+      imagePullSecrets:
+        - name: ghcr-secret
       volumes:
         - name: data
           persistentVolumeClaim:
