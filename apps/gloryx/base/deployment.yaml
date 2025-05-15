@@ -5,7 +5,6 @@ metadata:
   labels:
     app: gloryx
 spec:
-  replicas: 5
   selector:
     matchLabels:
       app: gloryx
