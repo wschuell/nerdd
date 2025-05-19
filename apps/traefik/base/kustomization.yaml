@@ -7,7 +7,4 @@ resources:
   - service.yaml
   - deployment.yaml
   - configmap.yaml
-  # dashboard route (and authorization)
   - ingressroute.yaml
-  - middleware.yaml
-  - dashboard-auth.yaml

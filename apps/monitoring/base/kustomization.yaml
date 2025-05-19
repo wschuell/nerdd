@@ -97,12 +97,8 @@ resources:
   - kube-prometheus-0.14.0/prometheusAdapter-deployment.yaml
   - kube-prometheus-0.14.0/blackboxExporter-serviceAccount.yaml
   - kube-prometheus-0.14.0/prometheusOperator-clusterRole.yaml
-  - ingressroute-grafana.yaml
-  - ingressroute-prometheus.yaml
-  - krr.yaml
-  - prometheus-auth.yaml
-  - prometheus-auth-middleware.yaml
-  - prometheus-strip-prefix-middleware.yaml
+  - grafana-ingressroute.yaml
+  - prometheus-ingressroute.yaml
   - grafana-auth.yaml
 
 patchesStrategicMerge:

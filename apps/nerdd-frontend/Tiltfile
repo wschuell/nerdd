@@ -1,6 +1,8 @@
 load('ext://git_resource', 'git_checkout')
 load('../../common.Tiltfile', 'kustomize_resource')
 
+USE_PRODUCTION_IMAGE = True
+
 # checkout source code
 project_name = 'nerdd-frontend'
 repository_url = 'https://github.com/molinfo-vienna/{}'.format(project_name)
@@ -11,11 +13,17 @@ if not os.path.exists(project_dir):
         checkout_dir=project_dir
     )
 
+# choose docker file
+if USE_PRODUCTION_IMAGE:
+    dockerfile = '{}/Dockerfile'.format(project_dir)
+else:
+    dockerfile = '{}/Dockerfile.dev'.format(project_dir) 
+
 # build docker image
 docker_build(
     'nerdd-frontend',
     context=project_dir,
-    dockerfile='{}/Dockerfile.dev'.format(project_dir),
+    dockerfile=dockerfile,
     live_update=[
         sync(project_dir, '/app')
     ],

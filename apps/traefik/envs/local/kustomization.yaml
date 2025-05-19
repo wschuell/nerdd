@@ -6,7 +6,14 @@ resources:
 
 patchesStrategicMerge:
   - patch-service.yaml
-  - patch-ingressroute.yaml
 
 patches:
-  - path: patch-middleware.yaml
+  - target:
+      kind: IngressRoute
+      name: traefik-dashboard
+    patch: |
+      - op: replace
+        path: /spec/routes/0/match
+        value: PathPrefix(`/traefik/api`) || PathPrefix(`/traefik/dashboard`)
+      - op: remove
+        path: /spec/routes/0/middlewares
