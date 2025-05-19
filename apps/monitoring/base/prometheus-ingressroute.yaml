@@ -5,7 +5,6 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      name: prometheus-route
       match: Host(`nerdd.univie.ac.at`) && PathPrefix(`/prometheus`)
       services:
         - name: prometheus-k8s
