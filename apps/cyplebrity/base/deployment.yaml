@@ -26,10 +26,10 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 1500Mi
+              memory: 50Mi
             limits:
               cpu: 4000m
-              memory: 1500Mi
+              memory: 5Gi
       imagePullSecrets:
         - name: ghcr-secret
       volumes:
