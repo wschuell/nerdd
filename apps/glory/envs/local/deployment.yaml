@@ -7,11 +7,13 @@ spec:
     spec:
       containers:
         - name: glory
+          image: glory:latest
           args:
             [
               "glory.GloryModel",
               "--broker-url",
-              "kafka-cluster-kafka-bootstrap.dev:9092",
+              "kafka-cluster-kafka-bootstrap.local:9092",
               "--data-dir",
               "/data",
             ]
+      imagePullSecrets:
