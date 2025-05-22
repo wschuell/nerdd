@@ -17,9 +17,7 @@ spec:
       containers:
         - name: np-scout
           image: ghcr.io/molinfo-vienna/np-scout:latest
-          env:
-            - name: KAFKA_BROKER_URL
-              value: <to-patch>
+          command: ["/env/bin/nerdd_prediction_server"]
           volumeMounts:
             - name: data
               mountPath: "/data"
