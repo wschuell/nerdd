@@ -20,6 +20,13 @@ spec:
           env:
             - name: KAFKA_BROKER_URL
               value: <to-patch>
+          resources:
+            requests:
+              cpu: 10m
+              memory: 1Gi
+            limits:
+              cpu: "4"
+              memory: 1Gi
           volumeMounts:
             - name: data
               mountPath: "/data"
