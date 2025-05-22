@@ -20,7 +20,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`nerdd.univie.ac.at`) && (PathPrefix(`/api`) || PathPrefix(`/websocket`))
+    - match: Host(`testpi1.local`) && (PathPrefix(`/api`) || PathPrefix(`/websocket`))
       kind: Rule
       services:
         - name: nerdd-backend

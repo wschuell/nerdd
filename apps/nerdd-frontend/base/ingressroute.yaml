@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`nerdd.univie.ac.at`) && PathPrefix(`/`)
+    - match: Host(`testpi1.local`) && PathPrefix(`/`)
       kind: Rule
       services:
         - name: nerdd-frontend

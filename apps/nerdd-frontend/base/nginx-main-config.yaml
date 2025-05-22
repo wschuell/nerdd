@@ -64,19 +64,19 @@ data:
         # determines which information is sent to the external website. This way the destination 
         # website can learn about the incoming traffic source. We use the value
         # "strict-origin-when-cross-origin" that does the following:
-        # * If destination is on same origin, allows the full url (nerdd.univie.ac.at/page) to be 
+        # * If destination is on same origin, allows the full url (testpi1.local/page) to be 
         #   sent.
-        # * If destination is on a different origin, only the domain (nerdd.univie.ac.at) is sent.
+        # * If destination is on a different origin, only the domain (testpi1.local) is sent.
         # * Does not allow any information to be sent when a scheme downgrade (https -> http) 
         #   happens (prevents an attacker to read the referrer field in the insecure http request).
         # 
         # Examples:
         # | Origin                               | Destination                           | Referrer field
         # | ------------------------------------ | ------------------------------------- | ------------------------------------
-        # | https://nerdd.univie.ac.at/some_page | https://nerdd.univie.ac.at/other_page | https://nerdd.univie.ac.at/some_page
-        # | https://nerdd.univie.ac.at           | https://example.com                   | https://nerdd.univie.ac.at
-        # | https://nerdd.univie.ac.at           | http://example.com                    | (nothing)
-        # | https://nerdd.univie.ac.at           | http://nerdd.univie.ac.at             | (nothing)
+        # | https://testpi1.local/some_page | https://testpi1.local/other_page | https://testpi1.local/some_page
+        # | https://testpi1.local           | https://example.com                   | https://testpi1.local
+        # | https://testpi1.local           | http://example.com                    | (nothing)
+        # | https://testpi1.local           | http://testpi1.local             | (nothing)
         #
         add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 

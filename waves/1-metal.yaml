@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/molinfo-vienna/nerdd.git
+    repoURL: https://github.com/wschuell/nerdd.git
     targetRevision: HEAD
     path: appsets/1-metal
   destination:

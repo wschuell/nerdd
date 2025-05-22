@@ -5,7 +5,7 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      match: Host(`nerdd.univie.ac.at`) && PathPrefix(`/prometheus`)
+      match: Host(`testpi1.local`) && PathPrefix(`/prometheus`)
       services:
         - name: prometheus-k8s
           port: 9090

@@ -8,7 +8,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
-        repoURL: https://github.com/molinfo-vienna/nerdd.git
+        repoURL: https://github.com/wschuell/nerdd.git
         revision: HEAD
         directories:
           - path: apps/*/envs/infra
@@ -20,7 +20,7 @@ spec:
       project: default
       # Source of the application manifests
       source:
-        repoURL: https://github.com/molinfo-vienna/nerdd.git
+        repoURL: https://github.com/wschuell/nerdd.git
         targetRevision: HEAD
         path: "{{.path.path}}"
 
