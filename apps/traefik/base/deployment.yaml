@@ -90,7 +90,7 @@ spec:
             mountPath: /tmp
           - name: config-static
             mountPath: /etc/traefik/traefik.yml
-            subPath: traefik.yml       
+            subPath: "traefik.yml"
         env:
           - name: POD_NAME
             valueFrom:
