@@ -15,13 +15,13 @@ provides the configuration files for setting up and running all components on a 
 
 * Option 1: kubectl
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/molinfo-vienna/nerdd/refs/heads/main/root.yaml
+kubectl apply -f https://raw.githubusercontent.com/wschuell/nerdd/refs/heads/main/root.yaml
 ```
 
 * Option 1: ArgoCD CLI
 ```sh
 argocd app create nerdd \
-  --repo https://github.com/molinfo-vienna/nerdd \
+  --repo https://github.com/wschuell/nerdd \
   --path / \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace default
