@@ -28,4 +28,4 @@ spec:
                 --property "key.separator=:"
 
       restartPolicy: Never
-  backoffLimit: 4
+  backoffLimit: 10
