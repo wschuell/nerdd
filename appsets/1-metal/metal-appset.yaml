@@ -12,6 +12,8 @@ spec:
       revision: HEAD
       directories:
       - path: apps/*/envs/metal
+          - path: apps/argocd/envs/metal
+            exclude: true
   template:
     metadata:
       name: '{{index .path.segments 1}}'

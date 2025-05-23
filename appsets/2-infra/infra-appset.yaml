@@ -12,6 +12,8 @@ spec:
         revision: HEAD
         directories:
           - path: apps/*/envs/infra
+          - path: apps/argocd/envs/infra
+            exclude: true
   template:
     metadata:
       name: "{{index .path.segments 1}}"
