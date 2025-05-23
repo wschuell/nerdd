@@ -288,6 +288,8 @@ rules:
       # Rook creates endpoints for mgr and object store access
       - endpoints
       - services
+      - endpointslices
+      - endpointslices/restricted
     verbs:
       - get
       - list
