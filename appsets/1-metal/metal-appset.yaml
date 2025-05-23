@@ -8,12 +8,12 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
-      repoURL: https://github.com/wschuell/nerdd.git
-      revision: HEAD
-      directories:
-        - path: apps/*/envs/metal
-        - path: apps/argocd/envs/metal
-          exclude: true
+        repoURL: https://github.com/wschuell/nerdd.git
+        revision: HEAD
+        directories:
+          - path: apps/*/envs/metal
+          - path: apps/argocd/envs/metal
+            exclude: true
   template:
     metadata:
       name: '{{index .path.segments 1}}'
