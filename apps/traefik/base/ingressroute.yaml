@@ -5,7 +5,7 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      match: Host(`testpi1.local`) && (PathPrefix(`/traefik/api`) || PathPrefix(`/traefik/dashboard`))
+      match: Host(`testnerdd.local`) && (PathPrefix(`/traefik/api`) || PathPrefix(`/traefik/dashboard`))
       services:
         - name: api@internal
           kind: TraefikService

@@ -5,7 +5,7 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      match: Host(`testpi1.local`) && PathPrefix(`/prometheus`)
+      match: Host(`testnerdd.local`) && PathPrefix(`/prometheus`)
       services:
         - name: prometheus-k8s
           port: 9090

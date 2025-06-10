@@ -7,13 +7,13 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`testpi1.local`) && PathPrefix(`/argocd`)
+      match: Host(`testnerdd.local`) && PathPrefix(`/argocd`)
       priority: 100
       services:
         - name: argocd-server
           port: 80
     - kind: Rule
-      match: Host(`testpi1.local`) && PathPrefix(`/argocd`) && Header(`Content-Type`, `application/grpc`)
+      match: Host(`testnerdd.local`) && PathPrefix(`/argocd`) && Header(`Content-Type`, `application/grpc`)
       priority: 101
       services:
         - name: argocd-server

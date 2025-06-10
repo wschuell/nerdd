@@ -7,7 +7,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`testpi1.local`) && PathPrefix(`/grafana`)
+      match: Host(`testnerdd.local`) && PathPrefix(`/grafana`)
       services:
         - name: grafana
           port: 3000
