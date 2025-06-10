@@ -14,4 +14,4 @@ spec:
         - name: nerdd-frontend
           port: 80
   tls:
-    secretName: testpi1-cert
+    secretName: testnerdd-cert
