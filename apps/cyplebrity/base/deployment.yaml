@@ -16,6 +16,8 @@ spec:
       containers:
         - name: cyplebrity
           image: ghcr.io/molinfo-vienna/cyplebrity:latest
+          stdin: true
+          tty: true
           env:
             - name: KAFKA_BROKER_URL
               value: <to-patch>
